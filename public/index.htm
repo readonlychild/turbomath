@@ -1,0 +1,298 @@
+<html>
+<head>
+<title>Turbo Math</title>
+  <meta name="viewport" content="user-scalable=no, width=device-width" />
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+</head>
+<style>
+  body { font-family:'comic sans',arial; font-size:20pt; width:320px; }
+  .operation { font-size:24pt; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:12px; margin:5px; }
+  .number    { display:inline-block; width:80px; text-align:right; }
+  .operator  { clear:right; display:inline-block; width:40px; }
+  .number2   { border-bottom:3px solid #000; }
+  .answer-options div,
+  #goodOnes, #badOnes, #skips
+	{ font-size:15pt; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:12px; margin:5px; text-align:center; cursor:pointer; width:70px; }
+  .answer-options div:hover { border:1px solid #666; }
+  .face { display:inline-block; width:128px; height:120px; float:left; }
+  .face-good { background:url('img/math-good-128.png') no-repeat 0px -10px; }
+  .face-bad  { background:url('img/math-bad-128.png') no-repeat 0px -10px; }
+  .face-idle { background:url('img/math-idle-128.png') no-repeat 0px -10px; }
+  .actionlink   { display:inline-block; padding:2px 5px; cursor:pointer; font-size:16pt; }
+  .actionlink-1 { background-color:#009; color:#fff; }
+  .sel { background-color:#cfc !important; }
+  .bad { background-color:#fbb !important; }
+  #timerContainer { background-color:#aaa; width:240px; height:12px; margin:10px auto 3px; }
+  #timer { height:12px; background-color:#f00; width:0px; }
+  #playing { display:none; }
+  #endscreen { display:none; }
+  .outcomecell { display:inline-block; font-size:15pt; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:6px; margin:5px; text-align:center; cursor:pointer; width:64px; }
+</style>
+<body>
+<center>
+	<img src="img/logo.png" />
+</center>
+
+<div id="menu">
+<center>
+	<strong>Solve the most problems in <br/>2 minutes!!</strong><br/>
+	
+	<span class="ui-corner-all actionlink actionlink-1" id="action-supereasy">Super Easy</span>
+	<span class="ui-corner-all actionlink actionlink-1" id="action-easy">Easy</span>
+	<br/>
+	<span class="ui-corner-all actionlink actionlink-1" id="action-normal">Normal</span>
+	<span class="ui-corner-all actionlink actionlink-1" id="action-hard">Hard</span>
+		<br/><br/>
+	<span class="ui-corner-all actionlink actionlink-1" id="action-start">Start :)</span>
+</center>
+</div><!-- #menu -->
+
+<div id="playing">
+<div id="timerContainer">
+	<div id="timer"></div> 
+</div>
+
+
+<div class="operation ui-corner-all">
+	<span class="face face-idle" id="mood-face"></span>
+	<span class="number" id="number1"> x </span> <span class="operator" id="operator"> ? </span>
+	<br/>
+	<span class="number number2" id="number2"> y </span>
+	<span class="skip actionlink actionlink-1 ui-corner-all" id="action-skip">Skip</span>
+</div>
+<br/>
+<div class="answer-options"></div>
+<br/>
+	<span class="ui-corner-all sel" id="goodOnes"> :) </span>
+	<span class="ui-corner-all bad" id="badOnes"> :( </span>
+	<span class="ui-corner-all" id="skips"> :| </span>
+	
+	<br/><br/>
+	<span class="ui-corner-all actionlink actionlink-1" id="action-end">End Session</span>
+	
+</div><!-- #playing -->
+
+<div id="endscreen">
+	<h3>Session Over</h3>
+	Your Score:<br/>
+	<div class="ui-corner-all outcomecell sel">Good: <br/> <span id="outcome-good"> :) </span> </div>
+	<div class="ui-corner-all outcomecell bad">Bad:  <br/> <span id="outcome-bad"> :(</span> </div>
+	<div class="ui-corner-all outcomecell">Skips:    <br/> <span id="outcome-skips"> :| </span> </div>
+	<br/><br/>
+	<span class="ui-corner-all actionlink actionlink-1" id="action-playagain">Play Again</span>
+	<br/>
+</div>
+
+<script type="text/javascript">
+	
+	Array.prototype.shuffle = function () {
+		var len = this.length;
+		var i = len;
+		while (i--) {
+			var p = parseInt(Math.random()*i);
+			var t = this[i];
+			this[i] = this[p];
+			this[p] = t;
+		}
+	};
+	
+	var _op = {};
+	_op.n1 = 9;
+	_op.n2 = 7;
+	_op.op = "+";
+	_op.answer = 16;
+	_op.options = [ 12, 14, 16, 18, 20, 22 ];
+	
+	var _gameState = {};
+	_gameState.goodOnes = 0;
+	_gameState.skips = 0;
+	_gameState.badOnes = 0;
+	_gameState.seconds = 0;
+	
+	_gameState.difficulty = {};
+	_gameState.difficulty.n1min = 10;
+	_gameState.difficulty.n1max = 30;
+	_gameState.difficulty.n2min = 0;
+	_gameState.difficulty.n2max = 20;
+	
+	
+	$(document).ready(function () {
+		randomOperation();
+		
+		$(".possibleAnswer").live("click", function () {
+			var $this = $(this);
+			$("#mood-face").removeClass("face-good").removeClass("face-idle").removeClass("face-bad");
+			$("#mood-face").addClass($this.data("face"));
+			if ($("#mood-face").hasClass("face-good")) {
+				$this.addClass("sel");
+				if (!$this.hasClass("clicked")) {
+					_gameState.goodOnes += 1;
+					_gameState.seconds -= 0.10;
+					pulseGood();
+				}
+				$("#action-skip").text("Next");
+				randomOperation();
+			} else {
+				$this.addClass("bad");
+				if (!$this.hasClass("clicked")) _gameState.badOnes += 1;
+				pulseBad();
+			}
+			$this.addClass("clicked");
+			showGameState();
+		});
+		
+		$("#action-end").on("click", function () {
+			_gameState.seconds = -1;
+			showMenu();
+		});
+		
+		$("#action-skip").on("click", function () {
+			$("#mood-face").removeClass("face-good").removeClass("face-idle").removeClass("face-bad");
+			$("#mood-face").addClass("face-idle");
+			if ($(this).text()=="Skip") _gameState.skips += 1;
+			randomOperation();
+		});
+		
+		$("#action-start").on("click", function () {
+			startGame();
+			
+		});
+		
+		$("#action-supereasy").on("click", function () {
+			_gameState.difficulty.n1min = 0;
+			_gameState.difficulty.n1max = 10;
+			_gameState.difficulty.n2min = 1;
+			_gameState.difficulty.n2max = 4;
+			startGame();
+		});
+		$("#action-easy").on("click", function () {
+			_gameState.difficulty.n1min = 0;
+			_gameState.difficulty.n1max = 10;
+			_gameState.difficulty.n2min = 1;
+			_gameState.difficulty.n2max = 10;
+			startGame();
+		});
+		$("#action-normal").on("click", function () {
+			_gameState.difficulty.n1min = 10;
+			_gameState.difficulty.n1max = 30;
+			_gameState.difficulty.n2min = 0;
+			_gameState.difficulty.n2max = 20;
+			startGame();
+		});
+		$("#action-hard").on("click", function () {
+			_gameState.difficulty.n1min = 20;
+			_gameState.difficulty.n1max = 50;
+			_gameState.difficulty.n2min = 10;
+			_gameState.difficulty.n2max = 50;
+			startGame();
+		});
+		
+		$("#action-playagain").on("click", function () {
+			startGame();
+		});
+		
+		
+	});
+	
+	function showMenu() {
+		$("#menu").show();
+		$("#endscreen").hide();
+		$("#playing").hide();
+	}
+	function startGame() {
+		$("#menu").hide();
+		$("#endscreen").hide();
+		$("#playing").show();
+		_gameState.goodOnes = 0;
+		_gameState.badOnes = 0;
+		_gameState.skips = 0;
+		_gameState.seconds = 0;
+		startTimer();
+	}
+	function endGame() {
+		$("#menu").hide();
+		$("#endscreen").show();
+		$("#playing").hide();
+		$("#outcome-good").text(_gameState.goodOnes);
+		$("#outcome-bad").text(_gameState.badOnes);
+		$("#outcome-skips").text(_gameState.skips);
+		
+	}
+	
+	function showOperation(op) {
+		$("#number1").text(op.n1);
+		$("#number2").text(op.n2);
+		$("#operator").text(op.op);
+		var htm = "";
+		op.options.shuffle();
+		for (var i = 0, z = op.options.length; i < z; i++) {
+			var dataFace = 'face-bad';
+			if (op.options[i] == op.answer) dataFace = 'face-good';
+			htm += "<div class='number ui-corner-all possibleAnswer' data-face='" + dataFace + "'>" + op.options[i] + "</div>";
+		}	
+		htm += "";
+		$(".answer-options").html(htm);
+		$("#action-skip").text("Skip");
+		showGameState();
+	}
+	function showGameState() {
+		$("#goodOnes").text(_gameState.goodOnes);
+		$("#badOnes").text(_gameState.badOnes);
+		$("#skips").text(_gameState.skips);
+	}
+	
+	function randomOperation() {
+		_op.n1 = randomIntegerBetween(_gameState.difficulty.n1min, _gameState.difficulty.n1max);
+		_op.n2 = randomIntegerBetween(_gameState.difficulty.n2min, _gameState.difficulty.n2max);
+		_op.answer = _op.n1 + _op.n2;
+		_op.options = [];
+		var lolimit = _op.answer - 3;
+		if (lolimit < 0) lolimit = 0;
+		var hilimit = lolimit + 6;
+		for (var i = lolimit, z = hilimit; i < z; i++) {
+			_op.options.push(i);
+		}
+		showOperation(_op);
+	}
+	
+	function randomIntegerBetween(min, max) {
+		return Math.floor(Math.random() * (max - min + 0)) + min;
+	}
+	
+	var _secondPixels = 2;
+	function startTimer() {
+			tick();
+	}
+	function tick() {
+		$("#timer").width(_gameState.seconds * _secondPixels);
+		if (_gameState.seconds < 0) return;
+		_gameState.seconds += 1;
+		if (_gameState.seconds > 120) {
+			endGame();
+			return;
+		}
+		setTimeout(function () {tick();}, 1000);
+	}
+	
+	function pulseGood() {
+		var startColor = $(".operation").css('background-color');
+		$(".operation")
+			.css({'background-color':'#77cc77'})
+			.animate({'background-color':startColor}, 600, function () {
+			
+			});
+	}
+	function pulseBad() {
+		var startColor = $(".operation").css('background-color');
+		$(".operation")
+			.css({'background-color':'#dd9944'})
+			.animate({'background-color':startColor}, 600, function () {
+			
+			});
+	}
+	
+</script>
+</body>
+</html>
