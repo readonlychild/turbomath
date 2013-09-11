@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<script type="text/javascript" src="turbomath.js"></script>
 </head>
 <style>
   body { font-family:'comic sans',arial; font-size:20pt; width:320px; }
@@ -87,6 +88,10 @@
 
 <script type="text/javascript">
 	
+
+
+
+	//sp: agregar funcion shuffle a arrays de js para revolver sus elementos
 	Array.prototype.shuffle = function () {
 		var len = this.length;
 		var i = len;
@@ -98,13 +103,14 @@
 		}
 	};
 	
-	var _op = {};
+	var _op = turbomath.getRandomOperation();
+	/*
 	_op.n1 = 9;
 	_op.n2 = 7;
-	_op.op = "+";
+	_op.op = turbomath.Constants.Addition;
 	_op.answer = 16;
 	_op.options = [ 12, 14, 16, 18, 20, 22 ];
-	
+
 	var _gameState = {};
 	_gameState.goodOnes = 0;
 	_gameState.skips = 0;
@@ -116,10 +122,10 @@
 	_gameState.difficulty.n1max = 30;
 	_gameState.difficulty.n2min = 0;
 	_gameState.difficulty.n2max = 20;
-	
+	*/
 	
 	$(document).ready(function () {
-		randomOperation();
+		turbomath.getRandomOperation();
 		
 		$(".possibleAnswer").live("click", function () {
 			var $this = $(this);
@@ -128,15 +134,15 @@
 			if ($("#mood-face").hasClass("face-good")) {
 				$this.addClass("sel");
 				if (!$this.hasClass("clicked")) {
-					_gameState.goodOnes += 1;
-					_gameState.seconds -= 0.10;
+					turbomath.session.goodOnes += 1;
+					turbomath.session.seconds -= 0.10;
 					pulseGood();
 				}
 				$("#action-skip").text("Next");
-				randomOperation();
+				turbomath.getRandomOperation();
 			} else {
 				$this.addClass("bad");
-				if (!$this.hasClass("clicked")) _gameState.badOnes += 1;
+				if (!$this.hasClass("clicked")) turbomath.session.badOnes += 1;
 				pulseBad();
 			}
 			$this.addClass("clicked");
@@ -144,15 +150,15 @@
 		});
 		
 		$("#action-end").on("click", function () {
-			_gameState.seconds = -1;
+			turbomath.session.seconds = -1;
 			showMenu();
 		});
 		
 		$("#action-skip").on("click", function () {
 			$("#mood-face").removeClass("face-good").removeClass("face-idle").removeClass("face-bad");
 			$("#mood-face").addClass("face-idle");
-			if ($(this).text()=="Skip") _gameState.skips += 1;
-			randomOperation();
+			if ($(this).text()=="Skip") turbomath.session.skips += 1;
+			turbomath.getRandomOperation();
 		});
 		
 		$("#action-start").on("click", function () {
@@ -161,31 +167,31 @@
 		});
 		
 		$("#action-supereasy").on("click", function () {
-			_gameState.difficulty.n1min = 0;
-			_gameState.difficulty.n1max = 10;
-			_gameState.difficulty.n2min = 1;
-			_gameState.difficulty.n2max = 4;
+			turbomath.session.difficulty.n1min = { addition:10, subtraction:10, multiplication:1,  division:1  };
+			turbomath.session.difficulty.n1max = { addition:30, subtraction:30, multiplication:10, division:10 };
+			turbomath.session.difficulty.n2min = { addition:1,  subtraction:1,  multiplication:1,  division:1  };
+			turbomath.session.difficulty.n2max = { addition:20, subtraction:20, multiplication:10, division:10 };
 			startGame();
 		});
 		$("#action-easy").on("click", function () {
-			_gameState.difficulty.n1min = 0;
-			_gameState.difficulty.n1max = 10;
-			_gameState.difficulty.n2min = 1;
-			_gameState.difficulty.n2max = 10;
+			turbomath.session.difficulty.n1min = { addition:10, subtraction:10, multiplication:1,  division:1  };
+			turbomath.session.difficulty.n1max = { addition:30, subtraction:30, multiplication:10, division:10 };
+			turbomath.session.difficulty.n2min = { addition:1,  subtraction:1,  multiplication:1,  division:1  };
+			turbomath.session.difficulty.n2max = { addition:20, subtraction:20, multiplication:10, division:10 };
 			startGame();
 		});
 		$("#action-normal").on("click", function () {
-			_gameState.difficulty.n1min = 10;
-			_gameState.difficulty.n1max = 30;
-			_gameState.difficulty.n2min = 0;
-			_gameState.difficulty.n2max = 20;
+			turbomath.session.difficulty.n1min = { addition:10, subtraction:10, multiplication:1,  division:1  };
+			turbomath.session.difficulty.n1max = { addition:30, subtraction:30, multiplication:10, division:10 };
+			turbomath.session.difficulty.n2min = { addition:1,  subtraction:1,  multiplication:1,  division:1  };
+			turbomath.session.difficulty.n2max = { addition:20, subtraction:20, multiplication:10, division:10 };
 			startGame();
 		});
 		$("#action-hard").on("click", function () {
-			_gameState.difficulty.n1min = 20;
-			_gameState.difficulty.n1max = 50;
-			_gameState.difficulty.n2min = 10;
-			_gameState.difficulty.n2max = 50;
+			turbomath.session.difficulty.n1min = { addition:10, subtraction:10, multiplication:1,  division:1  };
+			turbomath.session.difficulty.n1max = { addition:30, subtraction:30, multiplication:10, division:10 };
+			turbomath.session.difficulty.n2min = { addition:1,  subtraction:1,  multiplication:1,  division:1  };
+			turbomath.session.difficulty.n2max = { addition:20, subtraction:20, multiplication:10, division:10 };
 			startGame();
 		});
 		
@@ -205,19 +211,19 @@
 		$("#menu").hide();
 		$("#endscreen").hide();
 		$("#playing").show();
-		_gameState.goodOnes = 0;
-		_gameState.badOnes = 0;
-		_gameState.skips = 0;
-		_gameState.seconds = 0;
+		turbomath.session.goodOnes = 0;
+		turbomath.session.badOnes = 0;
+		turbomath.session.skips = 0;
+		turbomath.session.seconds = 0;
 		startTimer();
 	}
 	function endGame() {
 		$("#menu").hide();
 		$("#endscreen").show();
 		$("#playing").hide();
-		$("#outcome-good").text(_gameState.goodOnes);
-		$("#outcome-bad").text(_gameState.badOnes);
-		$("#outcome-skips").text(_gameState.skips);
+		$("#outcome-good").text(turbomath.session.goodOnes);
+		$("#outcome-bad").text(turbomath.session.badOnes);
+		$("#outcome-skips").text(turbomath.session.skips);
 		
 	}
 	
@@ -238,44 +244,11 @@
 		showGameState();
 	}
 	function showGameState() {
-		$("#goodOnes").text(_gameState.goodOnes);
-		$("#badOnes").text(_gameState.badOnes);
-		$("#skips").text(_gameState.skips);
+		$("#goodOnes").text(turbomath.session.goodOnes);
+		$("#badOnes").text(turbomath.session.badOnes);
+		$("#skips").text(turbomath.session.skips);
 	}
-	
-	function randomOperation() {
-		_op.n1 = randomIntegerBetween(_gameState.difficulty.n1min, _gameState.difficulty.n1max);
-		_op.n2 = randomIntegerBetween(_gameState.difficulty.n2min, _gameState.difficulty.n2max);
-		_op.answer = _op.n1 + _op.n2;
-		_op.options = [];
-		var lolimit = _op.answer - 3;
-		if (lolimit < 0) lolimit = 0;
-		var hilimit = lolimit + 6;
-		for (var i = lolimit, z = hilimit; i < z; i++) {
-			_op.options.push(i);
-		}
-		showOperation(_op);
-	}
-	
-	function randomIntegerBetween(min, max) {
-		return Math.floor(Math.random() * (max - min + 0)) + min;
-	}
-	
-	var _secondPixels = 2;
-	function startTimer() {
-			tick();
-	}
-	function tick() {
-		$("#timer").width(_gameState.seconds * _secondPixels);
-		if (_gameState.seconds < 0) return;
-		_gameState.seconds += 1;
-		if (_gameState.seconds > 120) {
-			endGame();
-			return;
-		}
-		setTimeout(function () {tick();}, 1000);
-	}
-	
+
 	function pulseGood() {
 		var startColor = $(".operation").css('background-color');
 		$(".operation")
