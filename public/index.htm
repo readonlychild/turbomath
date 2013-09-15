@@ -2,10 +2,11 @@
 <head>
 <title>Turbo Math</title>
   <meta name="viewport" content="user-scalable=no, width=device-width" />
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<link rel="stylesheet" href="minified/jquery-ui.min.css" />
+	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="jquery-ui-1.8.24.min.js"></script>
 	<script type="text/javascript" src="turbomath.js"></script>
+	<script type="text/javascript" src="turbomath.session.difficulty.methods.js"></script>
 </head>
 <style>
   body { font-family:'comic sans',arial; font-size:20pt; width:320px; }
@@ -30,6 +31,7 @@
   #playing { display:none; }
   #endscreen { display:none; }
   .outcomecell { display:inline-block; font-size:15pt; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:6px; margin:5px; text-align:center; cursor:pointer; width:64px; }
+  .note { font-size:12pt; }
 </style>
 <body>
 <center>
@@ -38,16 +40,22 @@
 
 <div id="menu">
 <center>
-	<strong>Solve the most problems in <br/>2 minutes!!</strong><br/>
-	
+	<strong style="font-size:16pt;">Solve the most problems in <br/>2 minutes!!</strong><br/>
+</center>
 	<span class="ui-corner-all actionlink actionlink-1" id="action-supereasy">Super Easy</span>
+	<span class="note">add, substract</span>
+	<br/>
 	<span class="ui-corner-all actionlink actionlink-1" id="action-easy">Easy</span>
+	<span class="note">add, substract, multiply</span>
 	<br/>
 	<span class="ui-corner-all actionlink actionlink-1" id="action-normal">Normal</span>
+	<span class="note">add, substract, multiply, divide</span>
+	<br/>
 	<span class="ui-corner-all actionlink actionlink-1" id="action-hard">Hard</span>
-		<br/><br/>
+	<span class="note">trig... jk :)</span>
+	<br/><br/>
 	<span class="ui-corner-all actionlink actionlink-1" id="action-start">Start :)</span>
-</center>
+
 </div><!-- #menu -->
 
 <div id="playing">
@@ -167,35 +175,28 @@
 		});
 		
 		$("#action-supereasy").on("click", function () {
-			turbomath.session.difficulty.n1min = { addition:10, subtraction:10, multiplication:1,  division:1  };
-			turbomath.session.difficulty.n1max = { addition:30, subtraction:30, multiplication:10, division:10 };
-			turbomath.session.difficulty.n2min = { addition:1,  subtraction:1,  multiplication:1,  division:1  };
-			turbomath.session.difficulty.n2max = { addition:20, subtraction:20, multiplication:10, division:10 };
+			turbomath.session.difficulty.setToSuperEasy();
+			turbomath.getRandomOperation();
 			startGame();
 		});
 		$("#action-easy").on("click", function () {
-			turbomath.session.difficulty.n1min = { addition:10, subtraction:10, multiplication:1,  division:1  };
-			turbomath.session.difficulty.n1max = { addition:30, subtraction:30, multiplication:10, division:10 };
-			turbomath.session.difficulty.n2min = { addition:1,  subtraction:1,  multiplication:1,  division:1  };
-			turbomath.session.difficulty.n2max = { addition:20, subtraction:20, multiplication:10, division:10 };
+			turbomath.session.difficulty.setToEasy();
+			turbomath.getRandomOperation();
 			startGame();
 		});
 		$("#action-normal").on("click", function () {
-			turbomath.session.difficulty.n1min = { addition:10, subtraction:10, multiplication:1,  division:1  };
-			turbomath.session.difficulty.n1max = { addition:30, subtraction:30, multiplication:10, division:10 };
-			turbomath.session.difficulty.n2min = { addition:1,  subtraction:1,  multiplication:1,  division:1  };
-			turbomath.session.difficulty.n2max = { addition:20, subtraction:20, multiplication:10, division:10 };
+			turbomath.session.difficulty.setToNormal();
+			turbomath.getRandomOperation();
 			startGame();
 		});
 		$("#action-hard").on("click", function () {
-			turbomath.session.difficulty.n1min = { addition:10, subtraction:10, multiplication:1,  division:1  };
-			turbomath.session.difficulty.n1max = { addition:30, subtraction:30, multiplication:10, division:10 };
-			turbomath.session.difficulty.n2min = { addition:1,  subtraction:1,  multiplication:1,  division:1  };
-			turbomath.session.difficulty.n2max = { addition:20, subtraction:20, multiplication:10, division:10 };
+			turbomath.session.difficulty.setToHard();
+			turbomath.getRandomOperation();
 			startGame();
 		});
 		
 		$("#action-playagain").on("click", function () {
+			turbomath.getRandomOperation();
 			startGame();
 		});
 		

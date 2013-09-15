@@ -10,7 +10,7 @@
 	turbomath.session.skips = 0;
 	turbomath.session.badOnes = 0;
 	turbomath.session.seconds = 0;
-	turbomath.session.availableOperations = [ "+", "-", "*" ];
+	turbomath.session.availableOperations = [ "+", "-", "*", "/" ];
 
 	turbomath.session.difficulty = {};
 	turbomath.session.difficulty.n1min = { addition:10, subtraction:10, multiplication:1,  division:1  };
@@ -46,6 +46,14 @@
 				op.n2 = this.randomIntegerBetween(this.session.difficulty.n2min.multiplication, this.session.difficulty.n2max.multiplication);
 				op.answer = op.n1 * op.n2;
 				break;
+			case "/":
+				op.n1 = this.randomIntegerBetween(this.session.difficulty.n1min.division, this.session.difficulty.n1max.division);
+				op.n2 = this.randomIntegerBetween(this.session.difficulty.n2min.division, this.session.difficulty.n2max.division);
+				op.answer = op.n1 * op.n2;
+				var tmp = op.answer;
+				op.answer = op.n1;
+				op.n1 = tmp;
+				break;
 		}
 		
 		op.options = [];
@@ -65,7 +73,7 @@
 	turbomath.pickRandomOp = function (availOps) {
 		var r = Math.random();
 		var x = Math.floor(r * availOps.length) + 0;
-		console.log(r, x);
+		//console.log(r, x);
 		return availOps[x];
 	}
 	
