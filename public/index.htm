@@ -9,59 +9,79 @@
 	<script type="text/javascript" src="turbomath.session.difficulty.methods.js"></script>
 </head>
 <style>
-  body { font-family:'comic sans',arial; font-size:20pt; width:320px; }
-  .operation { font-size:24pt; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:12px; margin:5px; }
+  body { font-family:'arial narrow',arial; font-size:20pt; }
+  #canvas { width:300px; height:460px; margin:0 auto; background:#abd url('img/bg.png') no-repeat; padding:10px; }
+  .operation { font-size:24pt; font-weight:bold; border:1px solid #ccf; background-color:#cdf; padding:12px; margin:5px; }
   .number    { display:inline-block; width:80px; text-align:right; }
   .operator  { clear:right; display:inline-block; width:40px; }
   .number2   { border-bottom:3px solid #000; }
   .answer-options div,
   #goodOnes, #badOnes, #skips
-	{ font-size:15pt; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:12px; margin:5px; text-align:center; cursor:pointer; width:70px; }
+	{ font-size:15pt; font-weight:bold; border:1px solid #ccf; background-color:#cdf; padding:12px; margin:5px; text-align:center; cursor:pointer; width:64px; }
   .answer-options div:hover { border:1px solid #666; }
-  .face { display:inline-block; width:128px; height:120px; float:left; }
+  .face { display:inline-block; width:128px; height:120px; float:left; margin-left:-20px; }
   .face-good { background:url('img/math-good-128.png') no-repeat 0px -10px; }
   .face-bad  { background:url('img/math-bad-128.png') no-repeat 0px -10px; }
   .face-idle { background:url('img/math-idle-128.png') no-repeat 0px -10px; }
-  .actionlink   { display:inline-block; padding:2px 5px; cursor:pointer; font-size:16pt; }
+  .actionlink   { display:inline-block; padding:2px 5px; cursor:pointer; font-size:16pt; background-color:#569; color:#fff; }
   .actionlink-1 { background-color:#009; color:#fff; }
+  .actionlink-2 { background-color:#f72; color:#fff; }
   .sel { background-color:#cfc !important; }
   .bad { background-color:#fbb !important; }
-  #timerContainer { background-color:#aaa; width:240px; height:12px; margin:10px auto 3px; }
-  #timer { height:12px; background-color:#f00; width:0px; }
+  #timerContainer { background-color:#ccc; width:300px; height:12px; margin:10px auto 3px; }
+  #timer { height:12px; background-color:#244484; width:0px; }
   #playing { display:none; }
+  .playing-topdiv { text-align:right; font-size:13pt; color:#fff; }
   #endscreen { display:none; }
   .outcomecell { display:inline-block; font-size:15pt; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:6px; margin:5px; text-align:center; cursor:pointer; width:64px; }
   .note { font-size:12pt; }
+  .operationToggle { width:30px; text-align:center; background:#888; }
+  .operationToggle.selected { background:#f50; }
 </style>
 <body>
-<center>
-	<img src="img/logo.png" />
-</center>
+<div id="canvas" class="ui-corner-all">
+
 
 <div id="menu">
+<br/>
+<br/>
 <center>
-	<strong style="font-size:16pt;">Solve the most problems in <br/>2 minutes!!</strong><br/>
+	<strong style="font-size:16pt;">Solve the most problems before time runs out!!</strong><br/>
 </center>
+<br/>
 	<span class="ui-corner-all actionlink actionlink-1" id="action-supereasy">Super Easy</span>
-	<span class="note">add, substract</span>
+	<span class="note"></span>
 	<br/>
 	<span class="ui-corner-all actionlink actionlink-1" id="action-easy">Easy</span>
-	<span class="note">add, substract, multiply</span>
+	<span class="note"></span>
 	<br/>
 	<span class="ui-corner-all actionlink actionlink-1" id="action-normal">Normal</span>
-	<span class="note">add, substract, multiply, divide</span>
+	<span class="note"></span>
 	<br/>
 	<span class="ui-corner-all actionlink actionlink-1" id="action-hard">Hard</span>
-	<span class="note">trig... jk :)</span>
+	<span class="note"></span>
 	<br/><br/>
-	<span class="ui-corner-all actionlink actionlink-1" id="action-start">Start :)</span>
+
+	<span style="font-size:13pt;">Toggle the operations you want to practice:</span>
+	<div style="text-align:right;">
+		<span class="ui-corner-all actionlink operationToggle selected">+</span>
+		<span class="ui-corner-all actionlink operationToggle selected">-</span>
+		<span class="ui-corner-all actionlink operationToggle selected">*</span>
+		<span class="ui-corner-all actionlink operationToggle selected">/</span>
+	</div>
+
 
 </div><!-- #menu -->
 
 <div id="playing">
-<div id="timerContainer">
-	<div id="timer"></div> 
-</div>
+
+	<div class="playing-topdiv">
+	<span class="levelName"></span> <span class="sessionSeconds"></span>
+	</div>
+
+	<div id="timerContainer">
+		<div id="timer"></div> 
+	</div>
 
 
 <div class="operation ui-corner-all">
@@ -84,15 +104,24 @@
 </div><!-- #playing -->
 
 <div id="endscreen">
+	<br/>
 	<h3>Session Over</h3>
 	Your Score:<br/>
 	<div class="ui-corner-all outcomecell sel">Good: <br/> <span id="outcome-good"> :) </span> </div>
 	<div class="ui-corner-all outcomecell bad">Bad:  <br/> <span id="outcome-bad"> :(</span> </div>
 	<div class="ui-corner-all outcomecell">Skips:    <br/> <span id="outcome-skips"> :| </span> </div>
-	<br/><br/>
-	<span class="ui-corner-all actionlink actionlink-1" id="action-playagain">Play Again</span>
+	<div style="font-size:14pt;">
+		Played Level: <span class="levelName" style="font-weight:bold;"></span>. <br/>
+		Played for <span class="sessionSeconds" style="font-weight:bold;"></span> seconds.<br/>
+		Practiced: <span class="sessionOperations"></span>
+	</div>
+	<br/>
+	<span class="ui-corner-all actionlink actionlink-2" id="action-playagain">Play Again</span>
+	<span class="ui-corner-all actionlink" id="action-gotoMenu">Go to Menu</span>
 	<br/>
 </div>
+
+</div><!-- #canvas -->
 
 <script type="text/javascript">
 	
@@ -112,25 +141,7 @@
 	};
 	
 	var _op = turbomath.getRandomOperation();
-	/*
-	_op.n1 = 9;
-	_op.n2 = 7;
-	_op.op = turbomath.Constants.Addition;
-	_op.answer = 16;
-	_op.options = [ 12, 14, 16, 18, 20, 22 ];
 
-	var _gameState = {};
-	_gameState.goodOnes = 0;
-	_gameState.skips = 0;
-	_gameState.badOnes = 0;
-	_gameState.seconds = 0;
-	
-	_gameState.difficulty = {};
-	_gameState.difficulty.n1min = 10;
-	_gameState.difficulty.n1max = 30;
-	_gameState.difficulty.n2min = 0;
-	_gameState.difficulty.n2max = 20;
-	*/
 	
 	$(document).ready(function () {
 		turbomath.getRandomOperation();
@@ -171,35 +182,37 @@
 		
 		$("#action-start").on("click", function () {
 			startGame();
-			
+			$("#levelName").text(turbomath.session.difficulty.level);
 		});
 		
 		$("#action-supereasy").on("click", function () {
 			turbomath.session.difficulty.setToSuperEasy();
-			turbomath.getRandomOperation();
 			startGame();
 		});
 		$("#action-easy").on("click", function () {
 			turbomath.session.difficulty.setToEasy();
-			turbomath.getRandomOperation();
 			startGame();
 		});
 		$("#action-normal").on("click", function () {
 			turbomath.session.difficulty.setToNormal();
-			turbomath.getRandomOperation();
 			startGame();
 		});
 		$("#action-hard").on("click", function () {
 			turbomath.session.difficulty.setToHard();
-			turbomath.getRandomOperation();
 			startGame();
 		});
 		
 		$("#action-playagain").on("click", function () {
-			turbomath.getRandomOperation();
 			startGame();
 		});
 		
+		$("#action-gotoMenu").on("click", function () {
+			showMenu();
+		});
+
+		$(".operationToggle").on("click", function () {
+			$(this).toggleClass("selected");
+		});
 		
 	});
 	
@@ -216,6 +229,11 @@
 		turbomath.session.badOnes = 0;
 		turbomath.session.skips = 0;
 		turbomath.session.seconds = 0;
+		turbomath.session.difficulty.getSelectedOperations();
+		$(".levelName").text(turbomath.session.difficulty.level);
+		$(".sessionSeconds").text(turbomath.session.totalSeconds);
+		$(".sessionOperations").text(turbomath.session.availableOperations.join(','));
+		turbomath.getRandomOperation();
 		startTimer();
 	}
 	function endGame() {
@@ -268,5 +286,6 @@
 	}
 	
 </script>
+
 </body>
 </html>
