@@ -11,7 +11,7 @@
 	turbomath.session.badOnes = 0;
 	turbomath.session.seconds = 0;
 	turbomath.session.availableOperations = [ "+", "-", "*", "/" ];
-	turbomath.session.totalSeconds = 30;
+	turbomath.session.totalSeconds = 60;
 
 	turbomath.session.difficulty = {};
 	turbomath.session.difficulty.level = "not set";
@@ -21,7 +21,6 @@
 	turbomath.session.difficulty.n2max = { addition:20, subtraction:20, multiplication:10, division:10 };
 
 	turbomath.misc = {};
-	//turbomath.misc.secondPixels = 2;
 
 	turbomath.getRandomOperation = function () {
 		var op = {};
@@ -86,13 +85,12 @@
 		if (this.session.seconds < 0) return;
 		this.session.seconds += 1;
 
-		var percentg = this.session.seconds / this.session.totalSeconds;
-		var widthFor300 = percentg * 300;
-		$("#timer").width(widthFor300);
-
 		if (this.session.seconds > this.session.totalSeconds) {
 			endGame();
 			return;
+		}
+		if (turbomath.onTick) {
+			turbomath.onTick();
 		}
 		setTimeout(function () {turbomath.tick();}, 1000);
 	};
