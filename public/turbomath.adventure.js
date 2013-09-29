@@ -9,22 +9,35 @@ turbomath.adventure.grade = function (session) {
 };
 turbomath.adventure.starsEarned = function (session) {
 	var grade = this.grade(session);
-	var level = this.getLevel();
+	//var level = this.getLevel();
 	var starsEarned = 0;
-	if (grade >= level.passingGrade) starsEarned = 1;
-	if (grade >= level.passingGrade + 10) starsEarned = 2;
-	if (grade >= level.passingGrade + 20) starsEarned = 3;
+	if (grade >= session.adventureLevel.passingGrade) starsEarned = 1;
+	if (grade >= session.adventureLevel.passingGrade + 10) starsEarned = 2;
+	if (grade >= session.adventureLevel.passingGrade + 20) starsEarned = 3;
 	return starsEarned;
 };
 
 turbomath.adventure.passedLevel = function (session) {
 	var grade = this.grade(session);
-	var level = this.getLevel();
-	var passed = grade >= level.passingGrade;
+	//var level = this.getLevel(session.adventureLevel.level);
+	var currLevel = this.getCurrentLevel();
+	var passed = grade >= session.adventureLevel.passingGrade;
 	if (passed) {
-		localStorage.adventureLevel = this.getCurrentLevel() + 1;
+		var starsEarned = this.starsEarned(session);
+		var prevEarned = this.getStarsEarnedInLevel(session.adventureLevel.level);
+		if (starsEarned > prevEarned) {
+			localStorage.setItem('lvl'+session.adventureLevel.level+'StarsEarned', starsEarned);
+		}
+		if (session.adventureLevel.level == currLevel) {
+			localStorage.adventureLevel = currLevel + 1;
+		}
 	}
 	return passed;
+};
+
+turbomath.adventure.getStarsEarnedInLevel = function (lvlNumber) {
+	var starsEarned = localStorage.getItem('lvl'+lvlNumber+'StarsEarned') || 0;
+	return parseInt(starsEarned);
 };
 
 
@@ -32,10 +45,11 @@ turbomath.adventure.passedLevel = function (session) {
 
 
 
-
-turbomath.adventure.getLevel = function () {
+turbomath.adventure.getLevel = function (numb) {
 	
+
 	var lvl = {};
+	lvl.level = 0;
 	lvl.operations = [ "+", "-", "*", "/" ];
 	lvl.seconds = 120;
 	lvl.difficulty = {};
@@ -47,9 +61,11 @@ turbomath.adventure.getLevel = function () {
 	lvl.passingGrade = 40;
 
 	var currLevel = this.getCurrentLevel();
+	var rlvl = numb || currLevel;
 
-	switch (currLevel) {
+	switch (rlvl) {
 		case 1:
+			lvl.level = 1;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -61,6 +77,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 2:
+			lvl.level = 2;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -72,6 +89,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 3:
+			lvl.level = 3;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -83,6 +101,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 4:
+			lvl.level = 4;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -94,6 +113,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 5:
+			lvl.level = 5;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -105,6 +125,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 6:
+			lvl.level = 6;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -116,6 +137,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 7:
+			lvl.level = 7;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -127,6 +149,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 8:
+			lvl.level = 8;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -138,6 +161,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 9:
+			lvl.level = 9;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -149,6 +173,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 10:
+			lvl.level = 10;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -160,6 +185,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 11:
+			lvl.level = 11;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -171,6 +197,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 12:
+			lvl.level = 12;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -182,6 +209,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 13:
+			lvl.level = 13;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -193,6 +221,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.passingGrade = 40;
 			break;
 		case 14:
+			lvl.level = 14;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -203,6 +232,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "014";
 			lvl.passingGrade = 40;
 		case 15:
+			lvl.level = 15;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -213,6 +243,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "015";
 			lvl.passingGrade = 40;
 		case 16:
+			lvl.level = 16;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -223,6 +254,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "016";
 			lvl.passingGrade = 40;
 		case 17:
+			lvl.level = 17;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -233,6 +265,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "017";
 			lvl.passingGrade = 40;
 		case 18:
+			lvl.level = 18;
 			lvl.seconds = 120;
 			lvl.operations = [ "+" ];
 			lvl.difficulty = {};
@@ -243,6 +276,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "018";
 			lvl.passingGrade = 40;
 		case 19:
+			lvl.level = 19;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -253,6 +287,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "019";
 			lvl.passingGrade = 40;
 		case 20:
+			lvl.level = 20;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -263,6 +298,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "020";
 			lvl.passingGrade = 40;
 		case 21:
+			lvl.level = 21;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -273,6 +309,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "021";
 			lvl.passingGrade = 40;
 		case 22:
+			lvl.level = 22;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -283,6 +320,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "022";
 			lvl.passingGrade = 40;
 		case 23:
+			lvl.level = 23;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -293,6 +331,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "023";
 			lvl.passingGrade = 40;
 		case 24:
+			lvl.level = 24;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -303,6 +342,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "024";
 			lvl.passingGrade = 40;
 		case 25:
+			lvl.level = 25;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -313,6 +353,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "025";
 			lvl.passingGrade = 40;
 		case 26:
+			lvl.level = 26;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -323,6 +364,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "026";
 			lvl.passingGrade = 40;
 		case 27:
+			lvl.level = 27;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -333,6 +375,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "027";
 			lvl.passingGrade = 40;
 		case 28:
+			lvl.level = 28;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -343,6 +386,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "028";
 			lvl.passingGrade = 40;
 		case 29:
+			lvl.level = 29;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -353,6 +397,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "029";
 			lvl.passingGrade = 40;
 		case 30:
+			lvl.level = 30;
 			lvl.seconds = 120;
 			lvl.operations = [ "-" ];
 			lvl.difficulty = {};
@@ -363,6 +408,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "030";
 			lvl.passingGrade = 40;
 		case 31:
+			lvl.level = 31;
 			lvl.seconds = 120;
 			lvl.operations = [ "+", "-" ];
 			lvl.difficulty = {};
@@ -373,6 +419,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "031";
 			lvl.passingGrade = 40;
 		case 32:
+			lvl.level = 32;
 			lvl.seconds = 120;
 			lvl.operations = [ "+", "-" ];
 			lvl.difficulty = {};
@@ -383,6 +430,7 @@ turbomath.adventure.getLevel = function () {
 			lvl.difficulty.level = "032";
 			lvl.passingGrade = 40;
 		case 33:
+			lvl.level = 33;
 			lvl.seconds = 120;
 			lvl.operations = [ "+", "-" ];
 			lvl.difficulty = {};

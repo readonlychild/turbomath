@@ -1,0 +1,45 @@
+body { font-family:'arial narrow',arial; font-size:100%; line-height:150%; margin:0; }
+
+  #canvas { height:460px; margin:0 auto; background:#fff; padding:10px; }
+  .screen { display:none; }
+  .operation { font-size:2em; line-height:1em; font-weight:bold; border:1px solid #ccf; background-color:#cdf; padding:12px; margin:5px; text-align:center; }
+  .answer-options { padding:5px; margin:0px 5px 10px; background-color:#f4f4f4; border:0px solid #ccf; text-align:center; }
+  .number    { display:inline-block; width:80px; text-align:right; }
+  .operator  { clear:right; display:inline-block; width:40px; }
+  .number2   { border-bottom:3px solid #000; }
+  .answer-options div,
+  #goodOnes, #badOnes, #skips
+	{ font-size:1.2em; font-weight:bold; border:1px solid #ccf; background-color:#cdf; padding:12px; margin:5px; text-align:center; cursor:pointer; width:60px; }
+  .answer-options div:hover { border:1px solid #666; }
+  .face { display:inline-block; width:128px; height:120px; float:left; margin-left:-20px; margin-top:-20px; }
+  .face-good { background:url('img/math-good-128.png') no-repeat 0px -10px; }
+  .face-bad  { background:url('img/math-bad-128.png') no-repeat 0px -10px; }
+  .face-idle { background:url('img/math-idle-128.png') no-repeat 0px -10px; }
+  .actionlink   { display:inline-block; padding:5px 10px; cursor:pointer; font-size:1.2em; background-color:#569; color:#fff; }
+  .actionlink-1 { background-color:#009; color:#fff; }
+  .actionlink-2 { background-color:#f72; color:#fff; }
+  .sel { background-color:#cfc !important; }
+  .bad { background-color:#fbb !important; }
+  #timerContainer { background-color:#ccc; width:300px; height:12px; margin:10px auto 3px; }
+  #timer { height:12px; background-color:#244484; width:0px; }
+  .outcomecell { display:inline-block; font-size:1.2em; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:6px; margin:5px; text-align:center; cursor:pointer; width:64px; }
+  .note { font-size:1em; }
+  .operationToggle { width:30px; text-align:center; background:#888; }
+  .operationToggle.selected { background:#f50; }
+  
+  .optionsbar { margin:-10px; height:32px; background:url('img/logo-bg.png') repeat-x; color:#fff; padding:2px 10px; }
+  .optionsbar .divider { display:inline-block; background:url('img/bar-divider.png') no-repeat; width:12px; height:32px; margin:-2px 0; vertical-align:top; }
+  .star-on  { display:inline-block; width:48px; height:48px; background:url('img/star.png') no-repeat; }
+  .star-off { display:inline-block; width:48px; height:48px; background:url('img/star-off.png') no-repeat 50% 50%; }
+
+  .lvl-box { border:1px solid #ccc; padding:2px; text-align:center; margin:3px 3px; display:inline-block; background:#ddd; }
+  .lvl-box:hover { border:1px solid #888; background:#e2e2e2; cursor:pointer; }
+  .lvl-box .title { font-size:1.5em; font-weight:bold; }
+  .lvl-lock { display:inline-block; width:48; height:48px; background:url('img/lock48.png') no-repeat; }
+
+#adventureLevelEnded { text-align:center; }
+#endscreen { text-align:center; }
+
+
+
+

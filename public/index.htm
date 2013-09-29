@@ -3,56 +3,25 @@
 <title>Turbo Math</title>
   <meta name="viewport" content="user-scalable=no, width=device-width" />
 	<link rel="stylesheet" href="minified/jquery-ui.min.css" />
+	<link rel="stylesheet" href="style.css" />
 	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="jquery-ui-1.8.24.min.js"></script>
 	<script type="text/javascript" src="turbomath.js"></script>
 	<script type="text/javascript" src="turbomath.session.difficulty.methods.js"></script>
 	<script type="text/javascript" src="turbomath.adventure.js"></script>
 </head>
-<style>
-  body { font-family:'arial narrow',arial; font-size:100%; line-height:150%; margin:0; }
 
-  #canvas { height:460px; margin:0 auto; background:#fff; padding:10px; }
-  .operation { font-size:2em; line-height:1em; font-weight:bold; border:1px solid #ccf; background-color:#cdf; padding:12px; margin:5px; }
-  .answer-options { padding:5px; margin:0px 5px 10px; background-color:#f4f4f4; border:0px solid #ccf; }
-  .number    { display:inline-block; width:80px; text-align:right; }
-  .operator  { clear:right; display:inline-block; width:40px; }
-  .number2   { border-bottom:3px solid #000; }
-  .answer-options div,
-  #goodOnes, #badOnes, #skips
-	{ font-size:1.2em; font-weight:bold; border:1px solid #ccf; background-color:#cdf; padding:12px; margin:5px; text-align:center; cursor:pointer; width:60px; }
-  .answer-options div:hover { border:1px solid #666; }
-  .face { display:inline-block; width:128px; height:120px; float:left; margin-left:-20px; margin-top:-20px; }
-  .face-good { background:url('img/math-good-128.png') no-repeat 0px -10px; }
-  .face-bad  { background:url('img/math-bad-128.png') no-repeat 0px -10px; }
-  .face-idle { background:url('img/math-idle-128.png') no-repeat 0px -10px; }
-  .actionlink   { display:inline-block; padding:5px 10px; cursor:pointer; font-size:1.2em; background-color:#569; color:#fff; }
-  .actionlink-1 { background-color:#009; color:#fff; }
-  .actionlink-2 { background-color:#f72; color:#fff; }
-  .sel { background-color:#cfc !important; }
-  .bad { background-color:#fbb !important; }
-  #timerContainer { background-color:#ccc; width:300px; height:12px; margin:10px auto 3px; }
-  #timer { height:12px; background-color:#244484; width:0px; }
-  #playing { display:none; }
-  #endscreen { display:none; }
-  .outcomecell { display:inline-block; font-size:1.2em; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:6px; margin:5px; text-align:center; cursor:pointer; width:64px; }
-  .note { font-size:1em; }
-  .operationToggle { width:30px; text-align:center; background:#888; }
-  .operationToggle.selected { background:#f50; }
-  #adventureLevelEnded { display:none; }
-
-  .optionsbar { margin:-10px; height:32px; background:url('img/logo-bg.png') repeat-x; color:#fff; padding:2px 10px; }
-  .optionsbar .divider { display:inline-block; background:url('img/bar-divider.png') no-repeat; width:12px; height:32px; margin:-2px 0; vertical-align:top; }
-  .star-on  { display:inline-block; width:48px; height:48px; background:url('img/star.png') no-repeat; }
-  .star-off { display:inline-block; width:48px; height:48px; background:url('img/star-off.png') no-repeat 50% 50%; }
-</style>
 <body>
 <div id="canvas" class="ui-corner-all">
 
 
-<div id="menu">
+<div id="menu" class="screen">
 	<div class="optionsbar">
-		<img src="img/logo.png" style="margin:-2px -10px;" />
+		<img src="img/logo.png" style="margin:-2px -10px; text-align:top; float:left;" />
+		<div style="text-align:right;">
+			<span class="divider"></span>
+			<span>v0.20</span> <span style="font-size:.7em;">130928</span>
+		</div>
 	</div>
 
 	<center>
@@ -77,7 +46,9 @@
 		</div>
 
 		<hr/>
-		<span class="ui-corner-all actionlink actionlink-1" id="action-adventure">Adventure Mode</span><br/>
+		<span class="ui-corner-all actionlink actionlink-1 action-adventure">Adventure Mode</span>
+		<span class="ui-corner-all actionlink actionlink-1 action-adventureProgress">Adventure Progress</span>
+		<br/>
 		<span class="note">Current Level: <span class="advCurrentLevel"></span></span>
 		<br/>
 	</center>
@@ -85,7 +56,7 @@
 
 </div><!-- #menu -->
 
-<div id="playing">
+<div id="playing" class="screen">
 	<div class="optionsbar" style="text-align:right;">
 		<span class="divider"></span>
 		<span class="levelName"></span>
@@ -114,13 +85,12 @@
 	<span class="ui-corner-all bad" id="badOnes"> :( </span>
 	<span class="ui-corner-all" id="skips"> :| </span>
 	
-	<br/><br/>
+	
 	<span class="ui-corner-all actionlink actionlink-1" id="action-end">End Session</span>
 	
 </div><!-- #playing -->
 
-<div id="endscreen">
-	<br/>
+<div id="endscreen" class="screen">
 	<h3>Session Over</h3>
 	Your Score:<br/>
 	<div class="ui-corner-all outcomecell sel">Good: <br/> <span class="outcome-good"> :) </span> </div>
@@ -132,12 +102,12 @@
 		Practiced: <span class="sessionOperations"></span>
 	</div>
 	<br/>
-	<span class="ui-corner-all actionlink actionlink-2" id="action-playagain">Play Again</span>
+	<span class="ui-corner-all actionlink actionlink-2" id="action-playagain">Practice Again</span>
 	<span class="ui-corner-all actionlink action-gotoMenu">Go to Menu</span>
 	<br/>
 </div>
 
-<div id="adventureLevelEnded">
+<div id="adventureLevelEnded" class="screen">
 	<h3>Adventure level <span class="advLevelName"></span></h3>
 	Passing Grade: <span class="advLevelPassingGrade"></span><br/>
 	Session Grade: <span class="advLevelGrade"></span><br/>
@@ -156,7 +126,8 @@
 	<span class="ui-corner-all actionlink actionlink-2 action-adventure">Continue Adventure</span>
 </div>
 
-</div><!-- #canvas -->
+
+
 
 <script type="text/javascript">
 	
@@ -179,6 +150,9 @@
 
 	
 	$(document).ready(function () {
+		
+		showScreen("menu");
+
 		turbomath.getRandomOperation();
 		
 		$(".advCurrentLevel").text(turbomath.adventure.getCurrentLevel());
@@ -255,8 +229,22 @@
 			$(this).toggleClass("selected");
 		});
 
-		$("#action-adventure").on("click", function () {
+		$(".action-adventure").on("click", function () {
 			startAdventure();
+		});
+
+		$(".action-adventureProgress").on("click", function () {
+			showAdventureProgress();
+		});
+
+		$("#adventureProgress").on("click", ".lvl-box", function () {
+			if ($(this).find(".lvl-lock").length > 0) {
+				alert("Level Locked o_0");
+				return;
+			} else {
+				var lvl = $(this).data("lvl");
+				startAdventure(parseInt(lvl));
+			}
 		});
 
 		turbomath.onTick = function () {
@@ -269,8 +257,13 @@
 		
 	});
 	
-	function startAdventure() {
-		var level = turbomath.adventure.getLevel();
+	function showScreen (screenName) {
+		$(".screen").hide();
+		$("#" + screenName).show();
+	};
+
+	function startAdventure (lvl) {
+		var level = turbomath.adventure.getLevel(lvl);
 		turbomath.session.goodOnes = 0;
 		turbomath.session.badOnes = 0;
 		turbomath.session.skips = 0;
@@ -280,11 +273,9 @@
 		$.extend(turbomath.session.difficulty, level.difficulty);
 
 		turbomath.adventureLevel = level;
+		turbomath.session.adventureLevel = level; 
 
-		$("#menu").hide();
-		$("#endscreen").hide();
-		$("#playing").show();
-		$("#adventureLevelEnded").hide();
+		showScreen("playing");
 
 		$(".levelName").text(turbomath.session.difficulty.level);
 		$(".sessionSeconds").text(turbomath.session.totalSeconds);
@@ -295,18 +286,20 @@
 		startTimer();
 	}
 
+	function showAdventureProgress() {
+		showScreen("adventureProgress");
+		var k = turbomath.adventure.getCurrentLevel();
+		for (var i = 1; i <= k; i++) {
+			$(".lvl-box-" + i + " .stars").html(getStarsMarkup(turbomath.adventure.getStarsEarnedInLevel(i)));
+		}
+	}
+
 	function showMenu() {
-		$("#menu").show();
-		$("#endscreen").hide();
-		$("#playing").hide();
-		$("#adventureLevelEnded").hide();
+		showScreen("menu");
 		$(".advCurrentLevel").text(turbomath.adventure.getCurrentLevel());
 	}
 	function startGame() {
-		$("#menu").hide();
-		$("#endscreen").hide();
-		$("#playing").show();
-		$("#adventureLevelEnded").hide();
+		showScreen("playing");
 		turbomath.session.goodOnes = 0;
 		turbomath.session.badOnes = 0;
 		turbomath.session.skips = 0;
@@ -320,16 +313,12 @@
 		startTimer();
 	}
 	function endGame() {
-		$("#menu").hide();
-		$("#endscreen").show();
-		$("#playing").hide();
-		$("#adventureLevelEnded").hide();
+		showScreen("endscreen");
 		$(".outcome-good").text(turbomath.session.goodOnes);
 		$(".outcome-bad").text(turbomath.session.badOnes);
 		$(".outcome-skips").text(turbomath.session.skips);
 		if (turbomath.adventureLevel) {
-			$("#endscreen").hide();
-			$("#adventureLevelEnded").show();
+			showScreen("adventureLevelEnded");
 			$(".advLevelName").text(turbomath.adventureLevel.difficulty.level);
 			$(".advLevelGrade").text(turbomath.adventure.grade(turbomath.session));
 			$(".advLevelPassingGrade").text(turbomath.adventureLevel.passingGrade);
@@ -396,7 +385,160 @@
 		return m;
 	}
 
+
+
 </script>
+
+
+
+
+<div id="adventureProgress" class="screen">
+	<h2>ADVENTURE</h2>
+	
+	<div class="lvl-box ui-corner-all lvl-box-1" data-lvl="1">
+		<span class="title">001</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-2" data-lvl="2">
+		<span class="title">002</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-3" data-lvl="3">
+		<span class="title">003</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-4" data-lvl="4">
+		<span class="title">004</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+
+	<div class="lvl-box ui-corner-all lvl-box-5" data-lvl="5">
+		<span class="title">005</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-6" data-lvl="6">
+		<span class="title">006</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-7" data-lvl="7">
+		<span class="title">007</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-8" data-lvl="8">
+		<span class="title">008</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+
+	<div class="lvl-box ui-corner-all lvl-box-9" data-lvl="9">
+		<span class="title">009</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-10" data-lvl="10">
+		<span class="title">010</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-11" data-lvl="11">
+		<span class="title">011</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-12" data-lvl="12">
+		<span class="title">012</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+
+	<div class="lvl-box ui-corner-all lvl-box-13" data-lvl="13">
+		<span class="title">013</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-14" data-lvl="14">
+		<span class="title">014</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-15" data-lvl="15">
+		<span class="title">015</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-16" data-lvl="16">
+		<span class="title">016</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+
+	<div class="lvl-box ui-corner-all lvl-box-17" data-lvl="17">
+		<span class="title">017</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-18" data-lvl="18">
+		<span class="title">018</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-19" data-lvl="19">
+		<span class="title">019</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-20" data-lvl="20">
+		<span class="title">020</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+
+	<div class="lvl-box ui-corner-all lvl-box-21" data-lvl="21">
+		<span class="title">021</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-22" data-lvl="22">
+		<span class="title">022</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-23" data-lvl="23">
+		<span class="title">023</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-24" data-lvl="24">
+		<span class="title">024</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+
+	<div class="lvl-box ui-corner-all lvl-box-25" data-lvl="25">
+		<span class="title">025</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-26" data-lvl="26">
+		<span class="title">026</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-27" data-lvl="27">
+		<span class="title">027</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-28" data-lvl="28">
+		<span class="title">028</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+
+	<div class="lvl-box ui-corner-all lvl-box-29" data-lvl="29">
+		<span class="title">029</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-30" data-lvl="30">
+		<span class="title">030</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-31" data-lvl="31">
+		<span class="title">031</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+	<div class="lvl-box ui-corner-all lvl-box-32" data-lvl="32">
+		<span class="title">032</span><br/>
+		<span class="stars"><span class="lvl-lock"></span></span>
+	</div>
+
+	<br/><br/>
+	<span class="ui-corner-all actionlink action-gotoMenu">Go to Menu</span>
+
+</div>
+
+</div><!-- #canvas -->
+
+
 
 </body>
 </html>
