@@ -29,13 +29,13 @@ body { font-family:'arial narrow',arial; font-size:100%; line-height:150%; margi
   
   .optionsbar { margin:-10px; height:32px; background:url('img/logo-bg.png') repeat-x; color:#fff; padding:2px 10px; }
   .optionsbar .divider { display:inline-block; background:url('img/bar-divider.png') no-repeat; width:12px; height:32px; margin:-2px 0; vertical-align:top; }
-  .star-on  { display:inline-block; width:48px; height:48px; background:url('img/star.png') no-repeat; }
-  .star-off { display:inline-block; width:48px; height:48px; background:url('img/star-off.png') no-repeat 50% 50%; }
+  .star-on  { display:inline-block; width:32px; height:32px; background:url('img/star.png') no-repeat; }
+  .star-off { display:inline-block; width:32px; height:32px; background:url('img/star-off.png') no-repeat 50% 50%; }
 
   .lvl-box { border:1px solid #ccc; padding:2px; text-align:center; margin:3px 3px; display:inline-block; background:#ddd; }
   .lvl-box:hover { border:1px solid #888; background:#e2e2e2; cursor:pointer; }
   .lvl-box .title { font-size:1.5em; font-weight:bold; }
-  .lvl-lock { display:inline-block; width:48; height:48px; background:url('img/lock48.png') no-repeat; }
+  .lvl-lock { display:inline-block; width:48; height:32px; background:url('img/lock32.png') no-repeat 50% 0; }
 
 #adventureLevelEnded { text-align:center; }
 #endscreen { text-align:center; }
