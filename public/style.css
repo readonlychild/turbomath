@@ -35,7 +35,7 @@ body { font-family:'arial narrow',arial; font-size:100%; line-height:150%; margi
   .lvl-box { border:1px solid #ccc; padding:2px; text-align:center; margin:3px 3px; display:inline-block; background:#ddd; }
   .lvl-box:hover { border:1px solid #888; background:#e2e2e2; cursor:pointer; }
   .lvl-box .title { font-size:1.5em; font-weight:bold; }
-  .lvl-lock { display:inline-block; width:48; height:32px; background:url('img/lock32.png') no-repeat 50% 0; }
+  .lvl-lock { display:inline-block; width:48px; height:32px; background:url('img/lock32.png') no-repeat 50% 0; }
 
 #adventureLevelEnded { text-align:center; }
 #endscreen { text-align:center; }

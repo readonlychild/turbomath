@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Turbo Math</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+	<link rel="stylesheet" href="minified/jquery-ui.min.css" />
+	<link rel="stylesheet" href="style.css" />
+	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="jquery-ui-1.8.24.min.js"></script>
+	<script type="text/javascript" src="turbomath.js"></script>
+	<script type="text/javascript" src="turbomath.session.difficulty.methods.js"></script>
+	<script type="text/javascript" src="adventures/elementary-lite.js"></script>
+</head>
+
+<body>
+<div id="canvas" class="ui-corner-all">
+
+
+<div id="menu" class="screen">
+	<div class="optionsbar">
+		<img src="img/logo.png" style="margin:-2px -10px; text-align:top; float:left;" />
+		<div style="text-align:right;">
+			<span class="divider"></span>
+			<span>v0.3.1</span> <span style="font-size:.7em;">131005</span>
+		</div>
+	</div>
+
+	<center>
+		<br/>
+		<strong style="font-size:1.5em;">Solve the most problems before time runs out!!</strong><br/>
+		<br/>
+
+		<span class="ui-corner-all actionlink actionlink-1" id="action-supereasy">Super Easy</span>
+		<span class="ui-corner-all actionlink actionlink-1" id="action-easy">Easy</span>
+		<span class="ui-corner-all actionlink actionlink-1" id="action-normal">Normal</span>
+		<span class="ui-corner-all actionlink actionlink-1" id="action-hard">Hard</span>
+		<span class="note"></span>
+		<br/><br/>
+
+		<span style="font-size:1.1em;">Toggle the operations you want to practice:</span>
+		<br/><br/>
+		<div style="text-align:center;">
+			<span class="ui-corner-all actionlink operationToggle selected">+</span>
+			<span class="ui-corner-all actionlink operationToggle selected">-</span>
+			<span class="ui-corner-all actionlink operationToggle selected">*</span>
+			<span class="ui-corner-all actionlink operationToggle selected">/</span>
+		</div>
+
+		<hr/>
+		<span class="ui-corner-all actionlink actionlink-1 action-adventure">Adventure Mode</span>
+		<span class="ui-corner-all actionlink actionlink-1 action-adventureProgress">Adventure Progress</span>
+		<br/>
+		<span class="note">Current Level: <span class="advCurrentLevel"></span></span>
+		<br/>
+	</center>
+	
+
+</div><!-- #menu -->
+
+<div id="playing" class="screen">
+	<div class="optionsbar" style="text-align:right;">
+		<span class="divider"></span>
+		<span class="levelName"></span>
+		<span class="divider"></span>
+		<span class="sessionSeconds"></span>
+		<span class="divider"></span>
+		<span class="advLevelGrade"></span>/<span class="advLevelPassingGrade"></span>
+	</div>
+
+	<div id="timerContainer">
+		<div id="timer"></div> 
+	</div>
+
+
+	<div class="operation ui-corner-all">
+		<span class="face face-idle" id="mood-face"></span>
+		<span class="number" id="number1"> x </span> <span class="operator" id="operator"> ? </span>
+		<br/>
+		<span class="number number2" id="number2"> y </span>
+		<span class="skip actionlink actionlink-1 ui-corner-all" id="action-skip" style="font-size:0.5em;line-height:1em;">Skip</span>
+	</div>
+	<br/>
+	<div class="answer-options ui-corner-all"></div>
+	<br/>
+	<span class="ui-corner-all sel" id="goodOnes"> :) </span>
+	<span class="ui-corner-all bad" id="badOnes"> :( </span>
+	<span class="ui-corner-all" id="skips"> :| </span>
+	
+	
+	<span class="ui-corner-all actionlink actionlink-1" id="action-end">End Session</span>
+	
+</div><!-- #playing -->
+
+<div id="endscreen" class="screen">
+	<h3>Session Over</h3>
+	Your Score:<br/>
+	<div class="ui-corner-all outcomecell sel">Good: <br/> <span class="outcome-good"> :) </span> </div>
+	<div class="ui-corner-all outcomecell bad">Bad:  <br/> <span class="outcome-bad"> :( </span> </div>
+	<div class="ui-corner-all outcomecell">Skips:    <br/> <span class="outcome-skips"> :| </span> </div>
+	<div>
+		Played Level: <span class="levelName" style="font-weight:bold;"></span>. <br/>
+		Played for <span class="sessionSeconds" style="font-weight:bold;"></span> seconds.<br/>
+		Practiced: <span class="sessionOperations"></span>
+	</div>
+	<br/>
+	<span class="ui-corner-all actionlink actionlink-2" id="action-playagain">Practice Again</span>
+	<span class="ui-corner-all actionlink action-gotoMenu">Go to Menu</span>
+	<br/>
+</div>
+
+<div id="adventureLevelEnded" class="screen">
+	<h3><span class="adventureName">Adventure level</span> <span class="advLevelName"></span></h3>
+	Passing Grade: <span class="advLevelPassingGrade"></span><br/>
+	Session Grade: <span class="advLevelGrade"></span><br/>
+	
+	<div class="ui-corner-all outcomecell sel">Good: <br/> <span class="outcome-good"> :) </span> </div>
+	<div class="ui-corner-all outcomecell bad">Bad:  <br/> <span class="outcome-bad"> :( </span> </div>
+	<div class="ui-corner-all outcomecell">Skips:    <br/> <span class="outcome-skips"> :| </span> </div>
+
+	<div class="starsEarned">
+		<span class="advStarsEarned">0</span>
+	</div>
+	<br/>
+	<span id="advLevelOutcome"></span><br/>
+	<br/>
+	<span class="ui-corner-all actionlink action-gotoMenu">Go to Menu</span> 
+	<span class="ui-corner-all actionlink actionlink-2 action-adventure">Continue Adventure</span>
+</div>
+
+
+
+
+<script type="text/javascript">
+	
+
+
+
+	//sp: agregar funcion shuffle a arrays de js para revolver sus elementos
+	Array.prototype.shuffle = function () {
+		var len = this.length;
+		var i = len;
+		while (i--) {
+			var p = parseInt(Math.random()*i);
+			var t = this[i];
+			this[i] = this[p];
+			this[p] = t;
+		}
+	};
+	
+	var _op = turbomath.getRandomOperation();
+
+	
+	$(document).ready(function () {
+		
+		showScreen("menu");
+
+		turbomath.getRandomOperation();
+		
+		$(".advCurrentLevel").text(turbomath.adventure.getCurrentLevel());
+
+		$(".possibleAnswer").live("click", function () {
+			var $this = $(this);
+			$("#mood-face").removeClass("face-good").removeClass("face-idle").removeClass("face-bad");
+			$("#mood-face").addClass($this.data("face"));
+			if ($("#mood-face").hasClass("face-good")) {
+				$this.addClass("sel");
+				if (!$this.hasClass("clicked")) {
+					turbomath.session.goodOnes += 1;
+					turbomath.session.seconds -= 0.10;
+					pulseGood();
+				}
+				$("#action-skip").text("Next");
+				turbomath.getRandomOperation();
+			} else {
+				$this.addClass("bad");
+				if (!$this.hasClass("clicked")) turbomath.session.badOnes += 1;
+				pulseBad();
+			}
+			$this.addClass("clicked");
+			showGameState();
+		});
+		
+		$("#action-end").on("click", function () {
+			turbomath.session.seconds = -1;
+			showMenu();
+		});
+		
+		$("#action-skip").on("click", function () {
+			$("#mood-face").removeClass("face-good").removeClass("face-idle").removeClass("face-bad");
+			$("#mood-face").addClass("face-idle");
+			if ($(this).text()=="Skip") turbomath.session.skips += 1;
+			turbomath.getRandomOperation();
+		});
+		
+		$("#action-start").on("click", function () {
+			startGame();
+			$("#levelName").text(turbomath.session.difficulty.level);
+		});
+		
+		$("#action-supereasy").on("click", function () {
+			turbomath.session.difficulty.setToSuperEasy();
+			turbomath.session.totalSeconds = 60;
+			startGame();
+		});
+		$("#action-easy").on("click", function () {
+			turbomath.session.difficulty.setToEasy();
+			turbomath.session.totalSeconds = 60;
+			startGame();
+		});
+		$("#action-normal").on("click", function () {
+			turbomath.session.difficulty.setToNormal();
+			turbomath.session.totalSeconds = 60;
+			startGame();
+		});
+		$("#action-hard").on("click", function () {
+			turbomath.session.difficulty.setToHard();
+			turbomath.session.totalSeconds = 60;
+			startGame();
+		});
+		
+		$("#action-playagain").on("click", function () {
+			startGame();
+		});
+		
+		$(".action-gotoMenu").on("click", function () {
+			showMenu();
+		});
+
+		$(".operationToggle").on("click", function () {
+			$(this).toggleClass("selected");
+		});
+
+		$(".action-adventure").on("click", function () {
+			startAdventure();
+		});
+
+		$(".action-adventureProgress").on("click", function () {
+			showAdventureProgress();
+		});
+
+		$("#adventureProgress").on("click", ".lvl-box", function () {
+			if ($(this).find(".lvl-lock").length > 0) {
+				alert("Level Locked o_0");
+				return;
+			} else {
+				var lvl = $(this).data("lvl");
+				startAdventure(parseInt(lvl));
+			}
+		});
+
+		turbomath.onTick = function () {
+			$(".advLevelGrade").text(turbomath.adventure.grade(turbomath.session));
+			var percentg = this.session.seconds / this.session.totalSeconds;
+			var widthFor300 = percentg * 300;
+			$("#timer").width(widthFor300);
+
+		}
+		
+	});
+	
+	function showScreen (screenName) {
+		$(".screen").hide();
+		$("#" + screenName).show();
+	};
+
+	function startAdventure (lvl) {
+		var level = turbomath.adventure.getLevel(lvl);
+		turbomath.session.goodOnes = 0;
+		turbomath.session.badOnes = 0;
+		turbomath.session.skips = 0;
+		turbomath.session.seconds = 0;
+		turbomath.session.totalSeconds = level.seconds;
+		turbomath.session.availableOperations = level.operations;
+		$.extend(turbomath.session.difficulty, level.difficulty);
+
+		turbomath.adventureLevel = level;
+		turbomath.session.adventureLevel = level; 
+
+		showScreen("playing");
+
+		$(".levelName").text(turbomath.session.difficulty.level);
+		$(".sessionSeconds").text(turbomath.session.totalSeconds);
+		$(".advLevelPassingGrade").text(turbomath.adventureLevel.passingGrade);
+		$(".sessionOperations").text(turbomath.session.availableOperations.join(','));
+
+		turbomath.getRandomOperation();
+		startTimer();
+	}
+
+	function showAdventureProgress() {
+		showScreen("adventureProgress");
+		$(".adventureName").text(turbomath.adventure.__adventureName);
+		var lvlBoxTpl = "";
+			lvlBoxTpl += '<div class="lvl-box ui-corner-all lvl-box-#idx#" data-lvl="#idx#">';
+			lvlBoxTpl += ' <span class="title">#title#</span><br/>';
+			lvlBoxTpl += ' <span class="stars"><span class="lvl-lock"></span></span>';
+			lvlBoxTpl += '</div>';
+		var adventureMarkup = "";
+		for (var i = 1; i <= turbomath.adventure.totalLevels; i++) {
+			adventureMarkup += lvlBoxTpl.replace(/#idx#/g, i)
+										.replace(/#title#/g, turbomath.adventure.getLevel(i).difficulty.level);
+
+		}
+		$(".adventureLevels").html(adventureMarkup);
+
+		var k = turbomath.adventure.getCurrentLevel();
+		for (var i = 1; i <= k; i++) {
+			$(".lvl-box-" + i + " .stars").html(getStarsMarkup(turbomath.adventure.getStarsEarnedInLevel(i)));
+		}
+	}
+
+	function showMenu() {
+		showScreen("menu");
+		$(".advCurrentLevel").text(turbomath.adventure.getCurrentLevel());
+	}
+	function startGame() {
+		showScreen("playing");
+		turbomath.session.goodOnes = 0;
+		turbomath.session.badOnes = 0;
+		turbomath.session.skips = 0;
+		turbomath.session.seconds = 0;
+		turbomath.session.difficulty.getSelectedOperations();
+		$(".levelName").text(turbomath.session.difficulty.level);
+		$(".sessionSeconds").text(turbomath.session.totalSeconds);
+		$(".sessionOperations").text(turbomath.session.availableOperations.join(','));
+		$(".advLevelPassingGrade").text('--');
+		turbomath.getRandomOperation();
+		startTimer();
+	}
+	function endGame() {
+		showScreen("endscreen");
+		$(".outcome-good").text(turbomath.session.goodOnes);
+		$(".outcome-bad").text(turbomath.session.badOnes);
+		$(".outcome-skips").text(turbomath.session.skips);
+		if (turbomath.adventureLevel) {
+			showScreen("adventureLevelEnded");
+			$(".adventureName").text(turbomath.adventure.__adventureName);
+			$(".advLevelName").text(turbomath.adventureLevel.difficulty.level);
+			$(".advLevelGrade").text(turbomath.adventure.grade(turbomath.session));
+			$(".advLevelPassingGrade").text(turbomath.adventureLevel.passingGrade);
+			$(".advStarsEarned").html(getStarsMarkup(turbomath.adventure.starsEarned(turbomath.session)));
+			var passed = turbomath.adventure.passedLevel(turbomath.session);
+			var lvlResultMessage = "? o_0";
+			if (passed) {
+				lvlResultMessage = "Awesome :) level completed!";
+			} else {
+				lvlResultMessage = ":( Try again ...";
+			}
+			$("#advLevelOutcome").text(lvlResultMessage);
+		}
+		turbomath.session.seconds = 0;
+	}
+	
+	function showOperation(op) {
+		$("#number1").text(op.n1);
+		$("#number2").text(op.n2);
+		$("#operator").text(op.op);
+		var htm = "";
+		op.options.shuffle();
+		for (var i = 0, z = op.options.length; i < z; i++) {
+			var dataFace = 'face-bad';
+			if (op.options[i] == op.answer) dataFace = 'face-good';
+			htm += "<div class='number ui-corner-all possibleAnswer' data-face='" + dataFace + "'>" + op.options[i] + "</div>";
+		}	
+		htm += "";
+		$(".answer-options").html(htm);
+		$("#action-skip").text("Skip");
+		showGameState();
+	}
+	function showGameState() {
+		$("#goodOnes").text(turbomath.session.goodOnes);
+		$("#badOnes").text(turbomath.session.badOnes);
+		$("#skips").text(turbomath.session.skips);
+	}
+
+	function pulseGood() {
+		var startColor = $(".operation").css('background-color');
+		$(".operation")
+			.css({'background-color':'#77cc77'})
+			.animate({'background-color':startColor}, 600, function () {
+			
+			});
+	}
+	function pulseBad() {
+		var startColor = $(".operation").css('background-color');
+		$(".operation")
+			.css({'background-color':'#dd9944'})
+			.animate({'background-color':startColor}, 600, function () {
+			
+			});
+	}
+	
+	function getStarsMarkup(n) {
+		var m = "";
+		var starY = "<span class='star-on'></span>";
+		var starN = "<span class='star-off'></span>";
+		if (n == 0) m = starN + starN + starN;
+		if (n == 1) m = starY + starN + starN;
+		if (n == 2) m = starY + starY + starN;
+		if (n == 3) m = starY + starY + starY;
+		return m;
+	}
+
+
+
+</script>
+
+
+
+
+<div id="adventureProgress" class="screen">
+	<h2 class="adventureName">ADVENTURE</h2>
+	
+	<div class="adventureLevels ui-corner-all"></div>
+	
+	<span class="ui-corner-all actionlink action-gotoMenu">Go to Menu</span>
+
+</div>
+
+</div><!-- #canvas -->
+
+
+
+</body>
+</html>

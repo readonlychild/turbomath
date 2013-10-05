@@ -1,6 +1,6 @@
 turbomath = turbomath || {};
 turbomath.adventure = turbomath.adventure || {};
-turbomath.adventure.__adventureName = "elementary";
+turbomath.adventure.__adventureName = "elementary (lite)";
 
 turbomath.adventure.getCurrentLevel = function () {
 	var lvl = localStorage.getItem(this.__adventureName) || "1";
@@ -46,11 +46,7 @@ turbomath.adventure.getStarsEarnedInLevel = function (lvlNumber) {
 
 turbomath.adventure.summary = "<h2>Elementary[lite] Adventure</h2>";
 turbomath.adventure.summary+= "Levels start with small numbers, and just addition. ";
-turbomath.adventure.summary+= "As levels are achieved, numbers start getting bigger, and other arithmetics operations are intorduced. ";
-turbomath.adventure.summary+= "Substraction starts at level 19, Addition is dropped for some levels. ";
-turbomath.adventure.summary+= "Additions and Substractions are combined starting at level 31. ";
-turbomath.adventure.summary+= "Multiplication joins the party at level ? ";
-turbomath.adventure.summary+= "Division then appears at level ? ";
+turbomath.adventure.summary+= "More levels are available in the non-lite edition! ";
 turbomath.adventure.summary+= " ";
 
 

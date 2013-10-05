@@ -53,15 +53,12 @@ turbomath.adventure.summary+= "Multiplication joins the party at level ? ";
 turbomath.adventure.summary+= "Division then appears at level ? ";
 turbomath.adventure.summary+= " ";
 
-
 turbomath.adventure.totalLevels = 33;
-
 
 
 
 turbomath.adventure.getLevel = function (numb) {
 	
-
 	var lvl = {};
 	lvl.level = 0;
 	lvl.operations = [ "+", "-", "*", "/" ];
@@ -76,7 +73,7 @@ turbomath.adventure.getLevel = function (numb) {
 
 	var currLevel = this.getCurrentLevel();
 	var rlvl = numb || currLevel;
-
+	
 	switch (rlvl) {
 		case 1:
 			lvl.level = 1;
