@@ -288,6 +288,20 @@
 
 	function showAdventureProgress() {
 		showScreen("adventureProgress");
+		
+		var lvlBoxTpl = "";
+			lvlBoxTpl += '<div class="lvl-box ui-corner-all lvl-box-#idx#" data-lvl="#idx#">';
+			lvlBoxTpl += ' <span class="title">#title#</span><br/>';
+			lvlBoxTpl += ' <span class="stars"><span class="lvl-lock"></span></span>';
+			lvlBoxTpl += '</div>';
+		var adventureMarkup = "";
+		for (var i = 1; i <= turbomath.adventure.totalLevels; i++) {
+			adventureMarkup += lvlBoxTpl.replace(/#idx#/g, i)
+										.replace(/#title#/g, turbomath.adventure.getLevel(i).difficulty.level);
+
+		}
+		$(".adventureLevels").html(adventureMarkup);
+
 		var k = turbomath.adventure.getCurrentLevel();
 		for (var i = 1; i <= k; i++) {
 			$(".lvl-box-" + i + " .stars").html(getStarsMarkup(turbomath.adventure.getStarsEarnedInLevel(i)));
@@ -395,142 +409,7 @@
 <div id="adventureProgress" class="screen">
 	<h2>ADVENTURE</h2>
 	
-	<div class="lvl-box ui-corner-all lvl-box-1" data-lvl="1">
-		<span class="title">001</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-2" data-lvl="2">
-		<span class="title">002</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-3" data-lvl="3">
-		<span class="title">003</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-4" data-lvl="4">
-		<span class="title">004</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-
-	<div class="lvl-box ui-corner-all lvl-box-5" data-lvl="5">
-		<span class="title">005</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-6" data-lvl="6">
-		<span class="title">006</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-7" data-lvl="7">
-		<span class="title">007</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-8" data-lvl="8">
-		<span class="title">008</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-
-	<div class="lvl-box ui-corner-all lvl-box-9" data-lvl="9">
-		<span class="title">009</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-10" data-lvl="10">
-		<span class="title">010</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-11" data-lvl="11">
-		<span class="title">011</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-12" data-lvl="12">
-		<span class="title">012</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-
-	<div class="lvl-box ui-corner-all lvl-box-13" data-lvl="13">
-		<span class="title">013</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-14" data-lvl="14">
-		<span class="title">014</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-15" data-lvl="15">
-		<span class="title">015</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-16" data-lvl="16">
-		<span class="title">016</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-
-	<div class="lvl-box ui-corner-all lvl-box-17" data-lvl="17">
-		<span class="title">017</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-18" data-lvl="18">
-		<span class="title">018</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-19" data-lvl="19">
-		<span class="title">019</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-20" data-lvl="20">
-		<span class="title">020</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-
-	<div class="lvl-box ui-corner-all lvl-box-21" data-lvl="21">
-		<span class="title">021</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-22" data-lvl="22">
-		<span class="title">022</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-23" data-lvl="23">
-		<span class="title">023</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-24" data-lvl="24">
-		<span class="title">024</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-
-	<div class="lvl-box ui-corner-all lvl-box-25" data-lvl="25">
-		<span class="title">025</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-26" data-lvl="26">
-		<span class="title">026</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-27" data-lvl="27">
-		<span class="title">027</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-28" data-lvl="28">
-		<span class="title">028</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-
-	<div class="lvl-box ui-corner-all lvl-box-29" data-lvl="29">
-		<span class="title">029</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-30" data-lvl="30">
-		<span class="title">030</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-31" data-lvl="31">
-		<span class="title">031</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-	<div class="lvl-box ui-corner-all lvl-box-32" data-lvl="32">
-		<span class="title">032</span><br/>
-		<span class="stars"><span class="lvl-lock"></span></span>
-	</div>
-
+	<div class="adventureLevels ui-corner-all"></div>
 	<br/><br/>
 	<span class="ui-corner-all actionlink action-gotoMenu">Go to Menu</span>
 

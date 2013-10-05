@@ -44,6 +44,17 @@ turbomath.adventure.getStarsEarnedInLevel = function (lvlNumber) {
 };
 
 
+turbomath.adventure.summary = "<h2>Elementary Adventure</h2>";
+turbomath.adventure.summary+= "Levels start with small numbers, and just addition. ";
+turbomath.adventure.summary+= "As levels are achieved, numbers start getting bigger, and other arithmetics operations are intorduced. ";
+turbomath.adventure.summary+= "Substraction starts at level 19, Addition is dropped for some levels. ";
+turbomath.adventure.summary+= "Additions and Substractions are combined starting at level 31. ";
+turbomath.adventure.summary+= "Multiplication joins the party at level ? ";
+turbomath.adventure.summary+= "Division then appears at level ? ";
+turbomath.adventure.summary+= " ";
+
+
+turbomath.adventure.totalLevels = 33;
 
 
 
@@ -234,6 +245,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:6,  multiplication:1, division:1 };
 			lvl.difficulty.level = "014";
 			lvl.passingGrade = 40;
+			break;
 		case 15:
 			lvl.level = 15;
 			lvl.seconds = 120;
@@ -245,6 +257,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:6,  multiplication:1, division:1 };
 			lvl.difficulty.level = "015";
 			lvl.passingGrade = 40;
+			break;
 		case 16:
 			lvl.level = 16;
 			lvl.seconds = 120;
@@ -256,6 +269,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:6,  multiplication:1, division:1 };
 			lvl.difficulty.level = "016";
 			lvl.passingGrade = 40;
+			break;
 		case 17:
 			lvl.level = 17;
 			lvl.seconds = 120;
@@ -267,6 +281,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:6,  multiplication:1, division:1 };
 			lvl.difficulty.level = "017";
 			lvl.passingGrade = 40;
+			break;
 		case 18:
 			lvl.level = 18;
 			lvl.seconds = 120;
@@ -278,6 +293,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:6,  multiplication:1, division:1 };
 			lvl.difficulty.level = "018";
 			lvl.passingGrade = 40;
+			break;
 		case 19:
 			lvl.level = 19;
 			lvl.seconds = 120;
@@ -289,6 +305,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:6,  multiplication:1, division:1 };
 			lvl.difficulty.level = "019";
 			lvl.passingGrade = 40;
+			break;
 		case 20:
 			lvl.level = 20;
 			lvl.seconds = 120;
@@ -300,6 +317,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:6,  multiplication:1, division:1 };
 			lvl.difficulty.level = "020";
 			lvl.passingGrade = 40;
+			break;
 		case 21:
 			lvl.level = 21;
 			lvl.seconds = 120;
@@ -311,6 +329,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:6,  multiplication:1, division:1 };
 			lvl.difficulty.level = "021";
 			lvl.passingGrade = 40;
+			break;
 		case 22:
 			lvl.level = 22;
 			lvl.seconds = 120;
@@ -322,6 +341,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:8,  multiplication:1, division:1 };
 			lvl.difficulty.level = "022";
 			lvl.passingGrade = 40;
+			break;
 		case 23:
 			lvl.level = 23;
 			lvl.seconds = 120;
@@ -333,6 +353,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:8,  multiplication:1, division:1 };
 			lvl.difficulty.level = "023";
 			lvl.passingGrade = 40;
+			break;
 		case 24:
 			lvl.level = 24;
 			lvl.seconds = 120;
@@ -344,6 +365,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:9,  multiplication:1, division:1 };
 			lvl.difficulty.level = "024";
 			lvl.passingGrade = 40;
+			break;
 		case 25:
 			lvl.level = 25;
 			lvl.seconds = 120;
@@ -355,6 +377,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:9,  multiplication:1, division:1 };
 			lvl.difficulty.level = "025";
 			lvl.passingGrade = 40;
+			break;
 		case 26:
 			lvl.level = 26;
 			lvl.seconds = 120;
@@ -366,6 +389,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:9,  multiplication:1, division:1 };
 			lvl.difficulty.level = "026";
 			lvl.passingGrade = 40;
+			break;
 		case 27:
 			lvl.level = 27;
 			lvl.seconds = 120;
@@ -377,6 +401,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:9,  multiplication:1, division:1 };
 			lvl.difficulty.level = "027";
 			lvl.passingGrade = 40;
+			break;
 		case 28:
 			lvl.level = 28;
 			lvl.seconds = 120;
@@ -388,6 +413,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:10, multiplication:1, division:1 };
 			lvl.difficulty.level = "028";
 			lvl.passingGrade = 40;
+			break;
 		case 29:
 			lvl.level = 29;
 			lvl.seconds = 120;
@@ -399,6 +425,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:10, multiplication:1, division:1 };
 			lvl.difficulty.level = "029";
 			lvl.passingGrade = 40;
+			break;
 		case 30:
 			lvl.level = 30;
 			lvl.seconds = 120;
@@ -410,6 +437,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:11, multiplication:1, division:1 };
 			lvl.difficulty.level = "030";
 			lvl.passingGrade = 40;
+			break;
 		case 31:
 			lvl.level = 31;
 			lvl.seconds = 120;
@@ -421,6 +449,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:11, multiplication:1, division:1 };
 			lvl.difficulty.level = "031";
 			lvl.passingGrade = 40;
+			break;
 		case 32:
 			lvl.level = 32;
 			lvl.seconds = 120;
@@ -432,6 +461,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:11, multiplication:1, division:1 };
 			lvl.difficulty.level = "032";
 			lvl.passingGrade = 40;
+			break;
 		case 33:
 			lvl.level = 33;
 			lvl.seconds = 120;
@@ -443,6 +473,7 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2max = { addition:10, subtraction:11, multiplication:1, division:1 };
 			lvl.difficulty.level = "033";
 			lvl.passingGrade = 40;
+			break;
 	}
 
 	return lvl;

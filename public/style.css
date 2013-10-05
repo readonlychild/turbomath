@@ -40,6 +40,7 @@ body { font-family:'arial narrow',arial; font-size:100%; line-height:150%; margi
 #adventureLevelEnded { text-align:center; }
 #endscreen { text-align:center; }
 #adventureProgress { text-align:center; }
+  .adventureLevels { margin:2px; border:1px solid #abd; padding:2px; }
 
 
 
