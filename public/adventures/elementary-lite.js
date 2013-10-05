@@ -22,6 +22,7 @@ turbomath.adventure.starsEarned = function (session) {
 
 turbomath.adventure.passedLevel = function (session) {
 	var grade = this.grade(session);
+	session.guid = session.guid || "--guest";
 	//var level = this.getLevel(session.adventureLevel.level);
 	var currLevel = this.getCurrentLevel();
 	var passed = grade >= session.adventureLevel.passingGrade;
@@ -34,6 +35,16 @@ turbomath.adventure.passedLevel = function (session) {
 		if (session.adventureLevel.level == currLevel) {
 			localStorage.setItem(this.__adventureName, currLevel + 1);
 		}
+		try {
+			var lvlnum = "000" + session.adventureLevel.level;
+			lvlnum = lvlnum.substr(lvlnum.length-3);
+			var gradenum = "000" + grade;
+			gradenum = gradenum.substr(gradenum.length-3);
+			$.ajax({
+				url: "http://missile-cmd.herokuapp.com/leaderboard/add/turbomathlite/" + session.guid + "/1" + lvlnum + gradenum,
+				type:"GET"
+			});
+		} catch (err) {}
 	}
 	return passed;
 };

@@ -133,6 +133,8 @@
 <script type="text/javascript">
 	
 
+	var _guid = turbomath.getGuid();
+	//console.log(_guid);
 
 
 	//sp: agregar funcion shuffle a arrays de js para revolver sus elementos
@@ -339,6 +341,7 @@
 			$(".advLevelGrade").text(turbomath.adventure.grade(turbomath.session));
 			$(".advLevelPassingGrade").text(turbomath.adventureLevel.passingGrade);
 			$(".advStarsEarned").html(getStarsMarkup(turbomath.adventure.starsEarned(turbomath.session)));
+			turbomath.session.guid = _guid;
 			var passed = turbomath.adventure.passedLevel(turbomath.session);
 			var lvlResultMessage = "? o_0";
 			if (passed) {
