@@ -43,3 +43,17 @@ turbomath.session.difficulty.getSelectedOperations = function () {
 		turbomath.session.availableOperations = [ "+", "-", "*", "/" ];
 	}
 };
+
+turbomath.session.postScore = function () {
+		try {
+			var lvlnum = "000";
+			var gradenum = "000" + (this.goodOnes - this.badOnes);
+			gradenum = gradenum.substr(gradenum.length-3);
+			$.ajax({
+				url: "http://missile-cmd.herokuapp.com/leaderboard/add/turbopractice/" + this.guid + "/1" + lvlnum + gradenum,
+				type:"GET"
+			});
+		} catch (err) {
+			//console.log (err);
+		}
+};
