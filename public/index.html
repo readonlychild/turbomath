@@ -21,7 +21,7 @@
 		<img src="img/logo.png" style="margin:-2px -10px; text-align:top; float:left;" />
 		<div style="text-align:right;">
 			<span class="divider"></span>
-			<span>v0.3.1</span> <span style="font-size:.7em;">131005</span>
+			<span>v0.3.1</span> <span style="font-size:.7em;">131007</span>
 		</div>
 	</div>
 
@@ -350,6 +350,9 @@
 				lvlResultMessage = ":( Try again ...";
 			}
 			$("#advLevelOutcome").text(lvlResultMessage);
+		} else {
+			turbomath.session.guid = _guid;
+			turbomath.session.postScore();
 		}
 		turbomath.session.seconds = 0;
 	}
