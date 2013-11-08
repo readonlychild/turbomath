@@ -1,6 +1,6 @@
 turbomath = turbomath || {};
 turbomath.adventure = turbomath.adventure || {};
-turbomath.adventure.__adventureName = "elementary";
+turbomath.adventure.__adventureName = "elementary.beta";
 
 turbomath.adventure.getCurrentLevel = function () {
 	var lvl = localStorage.getItem(this.__adventureName) || "1";
@@ -49,11 +49,11 @@ turbomath.adventure.summary+= "Levels start with small numbers, and just additio
 turbomath.adventure.summary+= "As levels are achieved, numbers start getting bigger, and other arithmetics operations are intorduced. ";
 turbomath.adventure.summary+= "Substraction starts at level 19, Addition is dropped for some levels. ";
 turbomath.adventure.summary+= "Additions and Substractions are combined starting at level 31. ";
-turbomath.adventure.summary+= "Multiplication joins the party at level ? ";
+turbomath.adventure.summary+= "Multiplication joins the party at level 42. ";
 turbomath.adventure.summary+= "Division then appears at level ? ";
 turbomath.adventure.summary+= " ";
 
-turbomath.adventure.totalLevels = 33;
+turbomath.adventure.totalLevels = 56;
 
 
 
@@ -469,6 +469,282 @@ turbomath.adventure.getLevel = function (numb) {
 			lvl.difficulty.n2min = { addition:1,  subtraction:1,  multiplication:1, division:1 };
 			lvl.difficulty.n2max = { addition:10, subtraction:11, multiplication:1, division:1 };
 			lvl.difficulty.level = "033";
+			lvl.passingGrade = 40;
+			break;
+		case 34:
+			lvl.level = 34;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:3,  subtraction:11, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:10, subtraction:20, multiplication:1, division:1 };
+			lvl.difficulty.n2min = { addition:3,  subtraction:1,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:10, subtraction:11, multiplication:1, division:1 };
+			lvl.difficulty.level = "034";
+			lvl.passingGrade = 40;
+			break;
+		case 35:
+			lvl.level = 35;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:3,  subtraction:14, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:10, subtraction:24, multiplication:1, division:1 };
+			lvl.difficulty.n2min = { addition:4,  subtraction:1,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:10, subtraction:14, multiplication:1, division:1 };
+			lvl.difficulty.level = "035";
+			lvl.passingGrade = 40;
+			break;
+		case 36:
+			lvl.level = 36;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:3,  subtraction:14, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:11, subtraction:25, multiplication:1, division:1 };
+			lvl.difficulty.n2min = { addition:4,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:12, subtraction:14, multiplication:1, division:1 };
+			lvl.difficulty.level = "036";
+			lvl.passingGrade = 40;
+			break;
+		case 37:
+			lvl.level = 37;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:4,  subtraction:14, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:12, subtraction:26, multiplication:1, division:1 };
+			lvl.difficulty.n2min = { addition:4,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:13, subtraction:14, multiplication:1, division:1 };
+			lvl.difficulty.level = "037";
+			lvl.passingGrade = 40;
+			break;
+		case 38:
+			lvl.level = 38;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:4,  subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:13, subtraction:28, multiplication:1, division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:14, subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.level = "038";
+			lvl.passingGrade = 40;
+			break;
+		case 39:
+			lvl.level = 39;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:4,  subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:14, subtraction:29, multiplication:1, division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.level = "039";
+			lvl.passingGrade = 40;
+			break;
+		case 40:
+			lvl.level = 40;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:1, division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.level = "040";
+			lvl.passingGrade = 40;
+			break;
+		case 41:
+			lvl.level = 41;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:1, division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.level = "041";
+			lvl.passingGrade = 40;
+			break;
+		case 42:
+			lvl.level = 42;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:1,  division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "042";
+			lvl.passingGrade = 40;
+			break;
+		case 43:
+			lvl.level = 43;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:2,  division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "043";
+			lvl.passingGrade = 40;
+			break;
+		case 44:
+			lvl.level = 44;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:3,  division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "044";
+			lvl.passingGrade = 40;
+			break;
+		case 45:
+			lvl.level = 45;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:4,  division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "045";
+			lvl.passingGrade = 40;
+			break;
+		case 46:
+			lvl.level = 46;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:5,  division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "046";
+			lvl.passingGrade = 40;
+			break;
+		case 47:
+			lvl.level = 47;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:6,  division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "047";
+			lvl.passingGrade = 40;
+			break;
+		case 48:
+			lvl.level = 48;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:7,  division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "048";
+			lvl.passingGrade = 40;
+			break;
+		case 49:
+			lvl.level = 49;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:8,  division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "049";
+			lvl.passingGrade = 40;
+			break;
+		case 50:
+			lvl.level = 50;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:9,  division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "050";
+			lvl.passingGrade = 40;
+			break;
+		case 51:
+			lvl.level = 51;
+			lvl.seconds = 120;
+			lvl.operations = [ "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1,  division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:10, division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1,  division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:10, division:1 };
+			lvl.difficulty.level = "051";
+			lvl.passingGrade = 40;
+			break;
+		case 52:
+			lvl.level = 52;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-", "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:2, division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:2, division:1 };
+			lvl.difficulty.level = "052";
+			lvl.passingGrade = 40;
+			break;
+		case 53:
+			lvl.level = 53;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-", "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:3, division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:2, division:1 };
+			lvl.difficulty.level = "053";
+			lvl.passingGrade = 40;
+			break;
+		case 54:
+			lvl.level = 54;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-", "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:4, division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:2, division:1 };
+			lvl.difficulty.level = "054";
+			lvl.passingGrade = 40;
+			break;
+		case 55:
+			lvl.level = 55;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-", "*" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:6,  subtraction:15, multiplication:1, division:1 };
+			lvl.difficulty.n1max = { addition:15, subtraction:30, multiplication:5, division:1 };
+			lvl.difficulty.n2min = { addition:6,  subtraction:4,  multiplication:1, division:1 };
+			lvl.difficulty.n2max = { addition:15, subtraction:15, multiplication:2, division:1 };
+			lvl.difficulty.level = "055";
+			lvl.passingGrade = 40;
+			break;
+		case 56:
+			lvl.level = 56;
+			lvl.seconds = 120;
+			lvl.operations = [ "+", "-", "*", "/" ];
+			lvl.difficulty = {};
+			lvl.difficulty.n1min = { addition:10, subtraction:65,  multiplication:5,  division:10  };
+			lvl.difficulty.n1max = { addition:50, subtraction:100, multiplication:20, division:100 };
+			lvl.difficulty.n2min = { addition:10, subtraction:13,  multiplication:3,  division:4   };
+			lvl.difficulty.n2max = { addition:50, subtraction:65,  multiplication:20, division:20  };
+			lvl.difficulty.level = "Crazy";
 			lvl.passingGrade = 40;
 			break;
 	}
