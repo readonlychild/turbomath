@@ -349,6 +349,7 @@
 			} else {
 				lvlResultMessage = ":( Try again ...";
 			}
+			turbomath.session.postScore(turbomath.adventure.__adventureName);
 			$("#advLevelOutcome").text(lvlResultMessage);
 		} else {
 			turbomath.session.guid = _guid;
