@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="style.css" />
 	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="jquery-ui-1.8.24.min.js"></script>
+	<script type="text/javascript" src="fastclick.js"></script>
 	<script type="text/javascript" src="turbomath.js"></script>
 	<script type="text/javascript" src="turbomath.session.difficulty.methods.js"></script>
 	<script type="text/javascript" src="adventures/elementary.js"></script>
@@ -27,9 +28,19 @@
 
 	<center>
 		<br/>
-		<strong style="font-size:1.5em;">Solve the most problems before time runs out!!</strong><br/>
+
+		<strong style="font-size:1.5em;">Solve the most problems before time runs out!! Collect all the stars you can!</strong><br/>
 		<br/>
 
+
+		<!--<span class="ui-corner-all actionlink actionlink-1 action-adventure">Adventure Mode</span>-->
+		<span class="ui-corner-all actionlink actionlink-1 action-adventureProgress">Adventure Progress</span>
+		<br/>
+		<span class="note">Current Level: <span class="advCurrentLevel"></span></span>
+		<br/>
+<hr/>
+		<strong>Practice Mode</strong><br/>
+		
 		<span class="ui-corner-all actionlink actionlink-1" id="action-supereasy">Super Easy</span>
 		<span class="ui-corner-all actionlink actionlink-1" id="action-easy">Easy</span>
 		<span class="ui-corner-all actionlink actionlink-1" id="action-normal">Normal</span>
@@ -38,7 +49,7 @@
 		<br/><br/>
 
 		<span style="font-size:1.1em;">Toggle the operations you want to practice:</span>
-		<br/><br/>
+		<br/>
 		<div style="text-align:center;">
 			<span class="ui-corner-all actionlink operationToggle selected">+</span>
 			<span class="ui-corner-all actionlink operationToggle selected">-</span>
@@ -46,12 +57,7 @@
 			<span class="ui-corner-all actionlink operationToggle selected">/</span>
 		</div>
 
-		<hr/>
-		<span class="ui-corner-all actionlink actionlink-1 action-adventure">Adventure Mode</span>
-		<span class="ui-corner-all actionlink actionlink-1 action-adventureProgress">Adventure Progress</span>
-		<br/>
-		<span class="note">Current Level: <span class="advCurrentLevel"></span></span>
-		<br/>
+		
 	</center>
 	
 
