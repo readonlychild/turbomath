@@ -5,6 +5,7 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 	<link rel="stylesheet" href="minified/jquery-ui.min.css" />
 	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="font-Boogaloo.css" />
 	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="jquery-ui-1.8.24.min.js"></script>
 	<script type="text/javascript" src="fastclick.js"></script>
@@ -22,14 +23,14 @@
 		<img src="img/logo.png" style="margin:-2px -10px; text-align:top; float:left;" />
 		<div style="text-align:right;">
 			<span class="divider"></span>
-			<span>v0.3.3</span> <span style="font-size:.7em;">131107</span>
+			<span>v0.3.4</span> <span style="font-size:.7em;">150525</span>
 		</div>
 	</div>
 
 	<center>
 		<br/>
 
-		<strong style="font-size:1.5em;">Solve the most problems before time runs out!! Collect all the stars you can!</strong><br/>
+		<span style="font-size:1.5em;font-family:Boogaloo;">Solve the most problems before time runs out!! Collect all the stars you can!</span><br/>
 		<br/>
 
 
@@ -72,6 +73,16 @@
 		<span class="divider"></span>
 		<span class="advLevelGrade"></span>/<span class="advLevelPassingGrade"></span>
 	</div>
+
+<br/><br/>
+<div style="clear:both;"></div>
+<div class="bar">
+	<div class="progress"></div>
+	<div class="star star-1"></div>
+	<div class="star star-2"></div>
+	<div class="star star-3"></div>
+</div>
+
 
 	<div id="timerContainer">
 		<div id="timer"></div> 
@@ -384,6 +395,8 @@
 		$("#goodOnes").text(turbomath.session.goodOnes);
 		$("#badOnes").text(turbomath.session.badOnes);
 		$("#skips").text(turbomath.session.skips);
+		var sco = turbomath.session.goodOnes - turbomath.session.badOnes;
+		setProgress(sco);
 	}
 
 	function pulseGood() {
@@ -405,16 +418,27 @@
 	
 	function getStarsMarkup(n) {
 		var m = "";
-		var starY = "<span class='star-on'></span>";
-		var starN = "<span class='star-off'></span>";
+		// do pulse-slow and pulse-slow-alt css classes.
+		var starY1 = "<span class='star-on pulse-slow'></span>";
+		var starY2 = "<span class='star-on pulse-slow-alt'></span>";
+		var starY3 = "<span class='star-on pulse-slow-alt2'></span>";
+		var starN  = "<span class='star-off'></span>";
 		if (n == 0) m = starN + starN + starN;
-		if (n == 1) m = starY + starN + starN;
-		if (n == 2) m = starY + starY + starN;
-		if (n == 3) m = starY + starY + starY;
+		if (n == 1) m = starY1 + starN + starN;
+		if (n == 2) m = starY1 + starY2 + starN;
+		if (n == 3) m = starY1 + starY2 + starY3;
 		return m;
 	}
 
-
+	function setProgress(v) {
+		var p = v * 100.0 / 60 - 2;
+		if (p > 98) p = 98;
+		//console.log(p);
+		$(".progress").width(p + '%');
+		if (v == 40) $(".star-1").addClass("star-full pulse");
+		if (v == 50) $(".star-2").addClass("star-full pulse");
+		if (v == 60) $(".star-3").addClass("star-full pulse");
+	}
 
 </script>
 

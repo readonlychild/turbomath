@@ -29,14 +29,15 @@ body { font-family:'arial narrow',arial; line-height:150%; margin:0; }
   .face-good { background:url('img/math-good-128.png') no-repeat 0px -10px; }
   .face-bad  { background:url('img/math-bad-128.png') no-repeat 0px -10px; }
   .face-idle { background:url('img/math-idle-128.png') no-repeat 0px -10px; }
-  .actionlink   { display:inline-block; padding:5px 10px; cursor:pointer; background-color:#569; color:#fff; margin:2px 0; }
+  .actionlink   { display:inline-block; padding:5px 10px; cursor:pointer; background-color:#569; color:#fff; margin:2px 0; font-family:Boogaloo; }
   .actionlink-1 { background-color:#009; color:#fff; }
   .actionlink-2 { background-color:#f72; color:#fff; }
   .sel { background-color:#cfc !important; }
   .bad { background-color:#fbb !important; }
   #timerContainer { background-color:#ccc; width:300px; height:12px; margin:10px auto 3px; }
   #timer { height:12px; background-color:#244484; width:0px; }
-  .outcomecell { display:inline-block; font-size:1.2em; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:6px; margin:5px; text-align:center; cursor:pointer; width:64px; }
+  .outcomecell { display:inline-block; font-size:1.2em; font-weight:bold; border:1px solid #ccc; background-color:#ddd; padding:6px; margin:5px; text-align:center; cursor:pointer; width:64px; 
+                 font-family:Boogaloo; }
   .note { font-size:1em; }
   .operationToggle { width:30px; text-align:center; background:#888; }
   .operationToggle.selected { background:#f50; }
@@ -56,6 +57,61 @@ body { font-family:'arial narrow',arial; line-height:150%; margin:0; }
 #adventureProgress { text-align:center; }
   .adventureLevels { margin:2px; border:1px solid #abd; padding:2px; }
 
+
+
+@-webkit-keyframes pulse {
+ 0%   { -webkit-transform: scale(1, 1); }
+ 50%  { -webkit-transform: scale(1.1, 1.1); }
+ 100% { -webkit-transform: scale(1, 1); };
+}
+
+@keyframes pulse {
+ 0%   { transform: scale(1, 1); }
+ 50%  { transform: scale(1.5, 1.5); }
+ 100% { transform: scale(1, 1); };
+}
+* { box-sizing:border-box; }
+.star {
+	background: url('img/star_empty16.png');
+	width:16px; height:16px;
+	display:inline-block; margin-top:-4px; position:absolute;
+}
+.star-empty {
+	background: url('img/star_empty16.png');
+}
+.star-full {
+	background: url('img/star16.png');
+}
+.pulse {
+	-webkit-animation: pulse 0.5s linear infinite;
+	animation: pulse 0.5s linear infinite;
+}
+.pulse-slow {
+	-webkit-animation: pulse 3.5s linear infinite;
+	animation: pulse 3.5s linear infinite;
+}
+.pulse-slow-alt {
+	-webkit-animation: pulse 3.5s linear infinite;
+	animation: pulse 3.5s linear infinite;
+  -webkit-animation-delay:1s;
+  animation-delay:1s;
+}
+.pulse-slow-alt2 {
+	-webkit-animation: pulse 3.5s linear infinite;
+	animation: pulse 3.5s linear infinite;
+  -webkit-animation-delay:2s;
+  animation-delay:2s;
+}
+.pulse-once {
+	-webkit-animation: pulse 0.5s linear;
+	animation: pulse 0.5s linear;
+}
+
+.bar { width:100%; border:1px solid #ccc; height:9px; }
+.star-1 { left:65%; }
+.star-2 { left:81.33%; }
+.star-3 { right:0%; }
+.progress { background:#cdf; height:7px; position:absolute; }
 
 
 
