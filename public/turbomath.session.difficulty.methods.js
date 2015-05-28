@@ -44,10 +44,12 @@ turbomath.session.difficulty.getSelectedOperations = function () {
 	}
 };
 
-turbomath.session.postScore = function (boardName) {
+turbomath.session.postScore = function (boardName, lvl) {
 		boardName = boardName || 'turbopractice';
+		lvl = lvl || "000";
 		try {
-			var lvlnum = "000";
+			var lvlnum = "000" + lvl;
+			lvlnum = lvlnum.substr(lvlnum.length-3);
 			var gradenum = "000" + (this.goodOnes - this.badOnes);
 			gradenum = gradenum.substr(gradenum.length-3);
 			$.ajax({

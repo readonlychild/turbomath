@@ -3,9 +3,12 @@
 <head>
 	<title>Turbo Math</title>
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+	<meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" href="css/font-Boogaloo.css" />
+	<link rel="stylesheet" href="css/font-Alegreya.css" />
 	<link rel="stylesheet" href="minified/jquery-ui.min.css" />
 	<link rel="stylesheet" href="style.css" />
-	<link rel="stylesheet" href="font-Boogaloo.css" />
+	
 	<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="jquery-ui-1.8.24.min.js"></script>
 	<script type="text/javascript" src="fastclick.js"></script>
@@ -30,7 +33,7 @@
 	<center>
 		<br/>
 
-		<span style="font-size:1.5em;font-family:Boogaloo;">Solve the most problems before time runs out!! Collect all the stars you can!</span><br/>
+		<span class="menu-title">Solve the most problems before time runs out!! Collect all the stars you can!</span><br/>
 		<br/>
 
 
@@ -58,7 +61,12 @@
 			<span class="ui-corner-all actionlink operationToggle selected">/</span>
 		</div>
 
-		
+<br/>
+	<div style="font-family:'Alegreya';">
+		<hr/>
+		<div id="user-id"></div>
+		<div id="screen-info"></div>
+	</div>
 	</center>
 	
 
@@ -74,7 +82,7 @@
 		<span class="advLevelGrade"></span>/<span class="advLevelPassingGrade"></span>
 	</div>
 
-<br/><br/>
+
 <div style="clear:both;"></div>
 <div class="bar">
 	<div class="progress"></div>
@@ -86,6 +94,7 @@
 
 	<div id="timerContainer">
 		<div id="timer"></div> 
+		<div class="hourglass"></div>
 	</div>
 
 
@@ -152,7 +161,8 @@
 
 	var _guid = turbomath.getGuid();
 	//console.log(_guid);
-
+	$("#user-id").text(_guid);
+	$("#screen-info").text(screen.width + "," + screen.height);
 
 	//sp: agregar funcion shuffle a arrays de js para revolver sus elementos
 	Array.prototype.shuffle = function () {
@@ -172,7 +182,7 @@
 	$(document).ready(function () {
 		
 		showScreen("menu");
-
+		
 		turbomath.getRandomOperation();
 		
 		$(".advCurrentLevel").text(turbomath.adventure.getCurrentLevel());
@@ -270,7 +280,7 @@
 		turbomath.onTick = function () {
 			$(".advLevelGrade").text(turbomath.adventure.grade(turbomath.session));
 			var percentg = this.session.seconds / this.session.totalSeconds;
-			var widthFor300 = percentg * 300;
+			var widthFor300 = percentg * (screen.width - 30);
 			$("#timer").width(widthFor300);
 
 		}
@@ -296,6 +306,10 @@
 		turbomath.session.adventureLevel = level; 
 
 		showScreen("playing");
+		
+		$(".star-1").removeClass("star-full pulse");
+		$(".star-2").removeClass("star-full pulse");
+		$(".star-3").removeClass("star-full pulse");
 
 		$(".levelName").text(turbomath.session.difficulty.level);
 		$(".sessionSeconds").text(turbomath.session.totalSeconds);
@@ -330,6 +344,9 @@
 
 	function showMenu() {
 		showScreen("menu");
+		$(".star-1").removeClass("star-full pulse");
+		$(".star-2").removeClass("star-full pulse");
+		$(".star-3").removeClass("star-full pulse");
 		$(".advCurrentLevel").text(turbomath.adventure.getCurrentLevel());
 	}
 	function startGame() {
@@ -338,6 +355,7 @@
 		turbomath.session.badOnes = 0;
 		turbomath.session.skips = 0;
 		turbomath.session.seconds = 0;
+		
 		turbomath.session.difficulty.getSelectedOperations();
 		$(".levelName").text(turbomath.session.difficulty.level);
 		$(".sessionSeconds").text(turbomath.session.totalSeconds);
@@ -366,7 +384,7 @@
 			} else {
 				lvlResultMessage = ":( Try again ...";
 			}
-			turbomath.session.postScore(turbomath.adventure.__adventureName);
+			turbomath.session.postScore(turbomath.adventure.__adventureName, turbomath.adventureLevel.level);
 			$("#advLevelOutcome").text(lvlResultMessage);
 		} else {
 			turbomath.session.guid = _guid;
@@ -384,7 +402,7 @@
 		for (var i = 0, z = op.options.length; i < z; i++) {
 			var dataFace = 'face-bad';
 			if (op.options[i] == op.answer) dataFace = 'face-good';
-			htm += "<div class='number ui-corner-all possibleAnswer' data-face='" + dataFace + "'>" + op.options[i] + "</div>";
+			htm += "<div class='number ui-corner-all possibleAnswer' data-face='" + dataFace + "'><label>" + op.options[i] + "</label></div>";
 		}	
 		htm += "";
 		$(".answer-options").html(htm);
